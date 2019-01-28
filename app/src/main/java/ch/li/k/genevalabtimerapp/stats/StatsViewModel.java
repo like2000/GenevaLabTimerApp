@@ -31,7 +31,7 @@ public class StatsViewModel extends AndroidViewModel {
     }
 
     void createSampleStats() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             LocalDateTime arg1 = LocalDateTime.now();
             Integer arg2 = new Random().nextInt();
             Integer arg3 = new Random().nextInt();
