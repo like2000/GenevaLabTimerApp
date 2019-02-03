@@ -3,21 +3,22 @@ package ch.li.k.genevalabtimerapp.cards;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import ch.li.k.genevalabtimerapp.databinding.FragmentStatsItemBinding;
+import java.util.ArrayList;
+import java.util.List;
+
+import ch.li.k.genevalabtimerapp.databinding.FragmentCardsItemBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder> {
-    {
 
-    }
+    List<CardsModel> cardsList = new ArrayList<>();
 
     @NonNull
     @Override
     public CardsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        FragmentStatsItemBinding itemBinding = FragmentStatsItemBinding.inflate(
+        FragmentCardsItemBinding itemBinding = FragmentCardsItemBinding.inflate(
                 inflater, parent, false);
 
         return new CardsViewHolder(itemBinding);
@@ -25,17 +26,31 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull CardsViewHolder holder, int ix) {
-
+        holder.bind(cardsList.get(ix));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        try {
+            return cardsList.size();
+        } catch (NullPointerException exception) {
+            return 0;
+        }
     }
 
     class CardsViewHolder extends RecyclerView.ViewHolder {
-        public CardsViewHolder(FragmentStatsItemBinding binding) {
+
+        private final FragmentCardsItemBinding binding;
+
+        public CardsViewHolder(FragmentCardsItemBinding binding) {
             super(binding.getRoot());
+
+            this.binding = binding;
+        }
+
+        public void bind(CardsModel cards) {
+            binding.setCards(cards);
+            binding.executePendingBindings();
         }
     }
 }
