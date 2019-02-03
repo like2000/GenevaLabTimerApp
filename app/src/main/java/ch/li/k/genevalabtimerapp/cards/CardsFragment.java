@@ -30,10 +30,13 @@ public class CardsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        RecyclerView.Adapter adapter = new CardsAdapter();
         RecyclerView recyclerView = getActivity().findViewById(R.id.cardsList);
         CardsViewModel viewModel = ViewModelProviders.of(this).get(CardsViewModel.class);
         // TODO: Use the ViewModel
 
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 
