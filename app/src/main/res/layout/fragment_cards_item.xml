@@ -16,44 +16,53 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTimestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{cards.timestamp.toString()}" />
 
             <TextView
                 android:id="@+id/tvExercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="@{cards.exercise}" />
 
             <CheckedTextView
                 android:id="@+id/tvSet1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckedTextView" />
+                android:text="@{cards.set1}" />
 
             <CheckedTextView
                 android:id="@+id/tvSet2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckedTextView" />
+                android:text="@{cards.set2}" />
 
             <CheckedTextView
                 android:id="@+id/tvSet3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckedTextView" />
+                android:text="@{cards.set3}" />
 
             <CheckedTextView
                 android:id="@+id/tvSet4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckedTextView" />
+                android:text="@{cards.set4}" />
+
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
 </layout>

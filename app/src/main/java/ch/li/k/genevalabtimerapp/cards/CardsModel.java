@@ -11,6 +11,16 @@ public class CardsModel {
     private LocalDateTime timestamp;
     private String exercise;
 
+    public CardsModel(LocalDateTime timestamp, String exercise,
+                      int set1, int set2, int set3, int set4) {
+        this.set1 = set1;
+        this.set2 = set2;
+        this.set3 = set3;
+        this.set4 = set4;
+        this.timestamp = timestamp;
+        this.exercise = exercise;
+    }
+
     public int getSet1() {
         return set1;
     }

@@ -1,5 +1,6 @@
 package ch.li.k.genevalabtimerapp.cards;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,13 @@ import ch.li.k.genevalabtimerapp.databinding.FragmentCardsItemBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder> {
 
+    Context context;
     List<CardsModel> cardsList = new ArrayList<>();
+
+    public CardsAdapter(List<CardsModel> cardsList, Context context) {
+        this.context = context;
+        this.cardsList = cardsList;
+    }
 
     @NonNull
     @Override

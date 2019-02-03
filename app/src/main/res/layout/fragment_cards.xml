@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="cards"
+            type="ch.li.k.genevalabtimerapp.cards.CardsModel" />
     </data>
 
     <FrameLayout
