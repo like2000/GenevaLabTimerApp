@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="java.time.format.DateTimeFormatter" />
+
         <variable
             name="stats"
             type="ch.li.k.genevalabtimerapp.stats.StatsRoomModel" />
