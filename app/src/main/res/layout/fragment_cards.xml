@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="java.time.format.DateTimeFormatter" />
+
         <variable
             name="cards"
             type="ch.li.k.genevalabtimerapp.cards.CardsModel" />
@@ -46,6 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:elevation="6dp"
                     android:gravity="center"
                     android:text="@string/edit" />
 
@@ -55,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:elevation="6dp"
                     android:gravity="center"
                     android:text="@string/save" />
             </LinearLayout>
