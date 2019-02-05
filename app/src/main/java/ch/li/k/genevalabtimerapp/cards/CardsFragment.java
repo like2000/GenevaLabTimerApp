@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +40,14 @@ public class CardsFragment extends Fragment {
         RecyclerView recyclerView = getActivity().findViewById(R.id.cardsList);
         CardsViewModel viewModel = ViewModelProviders.of(this).get(CardsViewModel.class);
         // TODO: Use the ViewModel
+        try {
+            viewModel.dump_data();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-//        recyclerView.getLayoutManager().decora
     }
 
     private List<CardsModel> defaultCardsList() {
