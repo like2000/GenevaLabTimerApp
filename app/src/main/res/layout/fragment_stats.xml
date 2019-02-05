@@ -5,32 +5,30 @@
 
     <data>
 
+        <import type="java.time.format.DateTimeFormatter" />
+
+        <variable
+            name="stats"
+            type="ch.li.k.genevalabtimerapp.stats.StatsRoomModel" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".stats.StatsFragment">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/statsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            tools:listitem="@layout/fragment_stats_item"
+            tools:text="@tools:sample/last_names">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/statsList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager"
-                tools:listitem="@layout/fragment_stats_item"
-                tools:text="@tools:sample/last_names">
+        </android.support.v7.widget.RecyclerView>
 
-            </android.support.v7.widget.RecyclerView>
-
-        </LinearLayout>
-
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>
