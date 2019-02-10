@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
-            tools:listitem="@layout/fragment_cards_item"
+            tools:listitem="@layout/fragment_cards_arms_item"
             tools:text="@tools:sample/last_names">
 
         </android.support.v7.widget.RecyclerView>

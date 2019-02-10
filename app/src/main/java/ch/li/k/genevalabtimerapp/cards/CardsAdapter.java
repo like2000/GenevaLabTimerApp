@@ -1,19 +1,22 @@
 package ch.li.k.genevalabtimerapp.cards;
 
+import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.li.k.genevalabtimerapp.databinding.FragmentCardsItemBinding;
+import ch.li.k.genevalabtimerapp.databinding.FragmentCardsArmsItemBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder> {
 
-//    Context context;
+    //    Context context;
     List<CardsModel> cardsList = new ArrayList<>();
 
 //    public CardsAdapter(Context context) {
@@ -22,12 +25,25 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     @NonNull
     @Override
-    public CardsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public CardsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        View itemBinding;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        FragmentCardsItemBinding itemBinding = FragmentCardsItemBinding.inflate(
-                inflater, parent, false);
 
-        return new CardsViewHolder(itemBinding);
+        if (viewType == 0) {
+            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
+                    inflater, parent, false);
+            return new CardsViewHolder(itemBinding);
+        } else {
+            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
+                    inflater, parent, false);
+            return new CardsViewHolder(itemBinding);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+//        Multiple
+        return super.getItemViewType(position);
     }
 
     @Override
@@ -49,16 +65,16 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
         notifyDataSetChanged();
     }
 
-    public void addCards(CardsModel cards) {
-        this.cardsList.add(cards);
-        notifyDataSetChanged();
-    }
+//    public void addCards(CardsModel cards) {
+//        this.cardsList.add(cards);
+//        notifyDataSetChanged();
+//    }
 
     class CardsViewHolder extends RecyclerView.ViewHolder {
 
-        private final FragmentCardsItemBinding binding;
+        private final FragmentCardsArmsItemBinding binding;
 
-        public CardsViewHolder(FragmentCardsItemBinding binding) {
+        public CardsViewHolder(FragmentCardsArmsItemBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
