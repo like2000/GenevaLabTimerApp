@@ -1,34 +1,46 @@
 package ch.li.k.genevalabtimerapp.cards;
 
-import android.Manifest;
-import android.app.Activity;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
-import com.opencsv.CSVWriter;
+import com.google.common.collect.Lists;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class CardsViewModel extends ViewModel {
 
-    // TODO: Implement the ViewModel
+    private LiveData<List<CardsModel>> cardsLiveData;
+
     private static final String filename = "geneva_data.csv";
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
     private static final String directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             .getAbsolutePath();
 
+    public CardsViewModel() {
+        cardsLiveData = new MutableLiveData<>();
+        ((MutableLiveData<List<CardsModel>>) cardsLiveData).setValue(new ArrayList<>());
+    }
+
     public static void dump_data() throws IOException {
         String path = directory + File.separator + filename;
         File file = new File(path);
-        CSVWriter writer;
+        CSVPrinter writer;
 
 //        // Here, thisActivity is the current activity
 //        if (ContextCompat.checkSelfPermission(this.context,
@@ -53,17 +65,55 @@ public class CardsViewModel extends ViewModel {
 //                // result of the request.
 //            }
 //        } else {
-//            // File exist
+
+        // File exist
         if (file.exists() && !file.isDirectory()) {
             FileWriter mFileWriter = new FileWriter(path, true);
-            writer = new CSVWriter(mFileWriter);
+            writer = new CSVPrinter(mFileWriter, CSVFormat.RFC4180);
         } else {
-            writer = new CSVWriter(new FileWriter(path));
+            writer = new CSVPrinter(new FileWriter(path), CSVFormat.RFC4180);
         }
         String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 "Lat Pulldowns", "50", "50", "50", "50"};
 
-        writer.writeNext(data);
+//        writer.printRecord(data);
         writer.close();
+    }
+
+//    public void getAllCards() throws IOException {
+//        String path = directory + File.separator + filename;
+//        CSVParser parser = CSVParser.parse(path, CSVFormat.RFC4180);
+//        for (CSVRecord record : parser) {
+//            System.out.println(path);
+//            System.out.println(record);
+//        }
+//    }
+
+//    public void getCardAt(int i) throws IOException {
+//        CSVParser parser = CSVParser.parse(filename, CSVFormat.RFC4180);
+//        for (CSVRecord record : parser) {
+//            System.out.println(record);
+//        }
+//    }
+
+    public LiveData<List<CardsModel>> getCardsLiveData() throws IOException {
+
+        String path = directory + File.separator + filename;
+        Reader buffer = new FileReader(path);
+        CSVParser parser = CSVParser.parse(buffer, CSVFormat.RFC4180);
+        for (CSVRecord record : parser) {
+            System.out.println(Lists.newArrayList(record));
+            cardsLiveData.getValue().add(new CardsModel(Lists.newArrayList(record)));
+        }
+        return cardsLiveData;
+    }
+
+    public void setCardsLiveData(LiveData<List<CardsModel>> cardsLiveData) {
+        this.cardsLiveData = cardsLiveData;
+    }
+
+    public void addCards(CardsModel cards) {
+        System.out.println(this.cardsLiveData.getValue());
+        this.cardsLiveData.getValue().add(cards);
     }
 }

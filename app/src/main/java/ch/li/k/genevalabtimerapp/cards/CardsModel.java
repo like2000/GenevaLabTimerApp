@@ -3,6 +3,8 @@ package ch.li.k.genevalabtimerapp.cards;
 import android.arch.persistence.room.Entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 @Entity(tableName = "exercise_table")
 public class CardsModel {
@@ -19,6 +21,15 @@ public class CardsModel {
         this.set4 = set4;
         this.timestamp = timestamp;
         this.exercise = exercise;
+    }
+
+    public CardsModel(ArrayList<String> stringArrayList) {
+        this.timestamp = LocalDateTime.parse(stringArrayList.get(0), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.set1 = Integer.parseInt(stringArrayList.get(2));
+        this.set2 = Integer.parseInt(stringArrayList.get(3));
+        this.set3 = Integer.parseInt(stringArrayList.get(4));
+        this.set4 = Integer.parseInt(stringArrayList.get(5));
+        this.exercise = stringArrayList.get(1);
     }
 
     public int getSet1() {

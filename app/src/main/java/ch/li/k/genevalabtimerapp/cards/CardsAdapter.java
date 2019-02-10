@@ -13,13 +13,12 @@ import ch.li.k.genevalabtimerapp.databinding.FragmentCardsItemBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder> {
 
-    Context context;
+//    Context context;
     List<CardsModel> cardsList = new ArrayList<>();
 
-    public CardsAdapter(List<CardsModel> cardsList, Context context) {
-        this.context = context;
-        this.cardsList = cardsList;
-    }
+//    public CardsAdapter(Context context) {
+//        this.context = context;
+//    }
 
     @NonNull
     @Override
@@ -43,6 +42,16 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
         } catch (NullPointerException exception) {
             return 0;
         }
+    }
+
+    public void setCards(List<CardsModel> cardsList) {
+        this.cardsList = cardsList;
+        notifyDataSetChanged();
+    }
+
+    public void addCards(CardsModel cards) {
+        this.cardsList.add(cards);
+        notifyDataSetChanged();
     }
 
     class CardsViewHolder extends RecyclerView.ViewHolder {

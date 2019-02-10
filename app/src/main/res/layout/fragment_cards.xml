@@ -56,6 +56,14 @@
                 android:elevation="6dp"
                 android:gravity="center"
                 android:text="@string/save" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                app:srcCompat="@android:drawable/ic_input_add" />
         </LinearLayout>
 
     </LinearLayout>
