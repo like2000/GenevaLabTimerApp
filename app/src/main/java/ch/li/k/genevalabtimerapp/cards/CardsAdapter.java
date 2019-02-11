@@ -1,49 +1,61 @@
 package ch.li.k.genevalabtimerapp.cards;
 
-import android.app.Application;
-import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+
+import com.android.databinding.library.baseAdapters.BR;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.li.k.genevalabtimerapp.R;
 import ch.li.k.genevalabtimerapp.databinding.FragmentCardsArmsItemBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder> {
 
-    //    Context context;
     List<CardsModel> cardsList = new ArrayList<>();
-
-//    public CardsAdapter(Context context) {
-//        this.context = context;
-//    }
 
     @NonNull
     @Override
     public CardsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        View itemBinding;
+        int layoutId = viewType;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, parent, false);
 
-        if (viewType == 0) {
-            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
-                    inflater, parent, false);
-            return new CardsViewHolder(itemBinding);
-        } else {
-            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
-                    inflater, parent, false);
-            return new CardsViewHolder(itemBinding);
-        }
+        CardsViewHolder viewHolder = new CardsViewHolder((FragmentCardsArmsItemBinding) binding);
+        return viewHolder;
+
+//        if (viewType == ARMS_TYPE) {
+//            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
+//                    inflater, parent, false);
+//            return new CardsViewHolder(itemBinding);
+//        } else if (viewType == BACK_TYPE) {
+//            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
+//                    inflater, parent, false);
+//            return new CardsViewHolder(itemBinding);
+//        } else {
+//            throw new RuntimeException("Unknown type!");
+//        }
     }
 
     @Override
     public int getItemViewType(int position) {
-//        Multiple
-        return super.getItemViewType(position);
+        CardsModel card = cardsList.get(position);
+        if (card.getType() == CardsModel.ViewType.ARMS) {
+            return R.layout.fragment_cards_arms_item;
+        } else if (card.getType() == CardsModel.ViewType.BACK) {
+            return R.layout.fragment_cards_back_item;
+        } else if (card.getType() == CardsModel.ViewType.CHEST) {
+            return R.layout.support_simple_spinner_dropdown_item;
+        } else {
+//            throw new RuntimeException("Card type must be one of ARMS, BACK or CHEST!");
+            return R.layout.fragment_cards_arms_item;
+        }
     }
 
     @Override
@@ -53,11 +65,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     @Override
     public int getItemCount() {
-        try {
-            return cardsList.size();
-        } catch (NullPointerException exception) {
-            return 0;
-        }
+        return cardsList == null ? 0 : cardsList.size();
     }
 
     public void setCards(List<CardsModel> cardsList) {
@@ -72,17 +80,35 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     class CardsViewHolder extends RecyclerView.ViewHolder {
 
-        private final FragmentCardsArmsItemBinding binding;
+        private final ViewDataBinding binding;
 
-        public CardsViewHolder(FragmentCardsArmsItemBinding binding) {
+        public CardsViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
         }
 
         public void bind(CardsModel cards) {
-            binding.setCards(cards);
-            binding.executePendingBindings();
+            if (cards.getType() == CardsModel.ViewType.ARMS) {
+                binding.setVariable(BR.cards, cards);
+                binding.executePendingBindings();
+            }
         }
     }
+
+//    class CardsViewHolder extends RecyclerView.ViewHolder {
+//
+//        private final FragmentCardsArmsItemBinding binding;
+//
+//        public CardsViewHolder(FragmentCardsArmsItemBinding binding) {
+//            super(binding.getRoot());
+//
+//            this.binding = binding;
+//        }
+//
+//        public void bind(CardsModel cards) {
+//            binding.setCards(cards);
+//            binding.executePendingBindings();
+//        }
+//    }
 }

@@ -12,6 +12,7 @@ public class CardsModel {
     private int set1, set2, set3, set4;
     private LocalDateTime timestamp;
     private String exercise;
+    private ViewType type;
 
     public CardsModel(LocalDateTime timestamp, String exercise,
                       int set1, int set2, int set3, int set4) {
@@ -30,6 +31,14 @@ public class CardsModel {
         this.set3 = Integer.parseInt(stringArrayList.get(4));
         this.set4 = Integer.parseInt(stringArrayList.get(5));
         this.exercise = stringArrayList.get(1);
+    }
+
+    public ViewType getType() {
+        return type;
+    }
+
+    public void setType(ViewType type) {
+        this.type = type;
     }
 
     public int getSet1() {
@@ -78,5 +87,11 @@ public class CardsModel {
 
     public void setExercise(String exercise) {
         this.exercise = exercise;
+    }
+
+    public enum ViewType {
+        ARMS,
+        BACK,
+        CHEST;
     }
 }
