@@ -14,6 +14,7 @@ import java.util.List;
 
 import ch.li.k.genevalabtimerapp.R;
 import ch.li.k.genevalabtimerapp.databinding.FragmentCardsArmsItemBinding;
+import ch.li.k.genevalabtimerapp.databinding.FragmentCardsBackItemBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder> {
 
@@ -27,7 +28,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, parent, false);
 
-        CardsViewHolder viewHolder = new CardsViewHolder((FragmentCardsArmsItemBinding) binding);
+        CardsViewHolder viewHolder = new CardsViewHolder(binding);
         return viewHolder;
 
 //        if (viewType == ARMS_TYPE) {
@@ -54,7 +55,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
             return R.layout.support_simple_spinner_dropdown_item;
         } else {
 //            throw new RuntimeException("Card type must be one of ARMS, BACK or CHEST!");
-            return R.layout.fragment_cards_arms_item;
+            return R.layout.fragment_cards_back_item;
         }
     }
 
@@ -89,10 +90,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
         }
 
         public void bind(CardsModel cards) {
-            if (cards.getType() == CardsModel.ViewType.ARMS) {
-                binding.setVariable(BR.cards, cards);
-                binding.executePendingBindings();
-            }
+            binding.setVariable(BR.cards, cards);
+            binding.executePendingBindings();
         }
     }
 
