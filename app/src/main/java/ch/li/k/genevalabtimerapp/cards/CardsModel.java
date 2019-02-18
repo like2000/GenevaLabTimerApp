@@ -1,13 +1,15 @@
 package ch.li.k.genevalabtimerapp.cards;
 
 import android.arch.persistence.room.Entity;
+import android.databinding.BaseObservable;
+import android.view.View;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Entity(tableName = "exercise_table")
-public class CardsModel {
+public class CardsModel extends BaseObservable {
 
     private int set1, set2, set3, set4;
     private LocalDateTime timestamp;
@@ -31,6 +33,11 @@ public class CardsModel {
         this.set3 = Integer.parseInt(stringArrayList.get(4));
         this.set4 = Integer.parseInt(stringArrayList.get(5));
         this.exercise = stringArrayList.get(1);
+    }
+
+    public void addCard(View v) {
+        System.exit(-1);
+        System.out.println("Add card!");
     }
 
     ViewType getType() {

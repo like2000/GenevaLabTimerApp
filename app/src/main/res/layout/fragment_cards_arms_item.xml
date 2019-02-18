@@ -10,6 +10,10 @@
         <variable
             name="cards"
             type="ch.li.k.genevalabtimerapp.cards.CardsModel" />
+
+        <variable
+            name="cardsViewModel"
+            type="ch.li.k.genevalabtimerapp.cards.CardsViewModel" />
     </data>
 
     <android.support.v7.widget.CardView

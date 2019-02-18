@@ -8,6 +8,10 @@
         <import type="java.time.format.DateTimeFormatter" />
 
         <variable
+            name="cards"
+            type="ch.li.k.genevalabtimerapp.cards.CardsModel" />
+
+        <variable
             name="cardsViewModel"
             type="ch.li.k.genevalabtimerapp.cards.CardsViewModel" />
     </data>
@@ -46,7 +50,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="Mo. 18.02.2019"
+                        android:text="@{cards.timestamp.format(DateTimeFormatter.ofPattern(`eee HH:mm`))}"
                         android:textSize="20sp" />
 
                     <TextView
@@ -55,7 +59,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="Back"
+                        android:text="@{cards.exercise}"
                         android:textSize="20sp" />
                 </TableRow>
 
