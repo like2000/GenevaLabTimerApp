@@ -33,7 +33,7 @@ public class CardsModel {
         this.exercise = stringArrayList.get(1);
     }
 
-    public ViewType getType() {
+    ViewType getType() {
         return type;
     }
 

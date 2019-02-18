@@ -8,8 +8,8 @@
         <import type="java.time.format.DateTimeFormatter" />
 
         <variable
-            name="cards"
-            type="ch.li.k.genevalabtimerapp.cards.CardsModel" />
+            name="cardsViewModel"
+            type="ch.li.k.genevalabtimerapp.cards.CardsViewModel" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -42,23 +42,21 @@
 
                     <TextView
                         android:id="@+id/tv_date"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="Mo. 12.02.2019"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:text="Mo. 18.02.2019"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/tv_type"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Back"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp" />
                 </TableRow>
 
                 <TableRow

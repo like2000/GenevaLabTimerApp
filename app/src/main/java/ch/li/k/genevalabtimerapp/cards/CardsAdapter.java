@@ -13,12 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.li.k.genevalabtimerapp.R;
-import ch.li.k.genevalabtimerapp.databinding.FragmentCardsArmsItemBinding;
-import ch.li.k.genevalabtimerapp.databinding.FragmentCardsBackItemBinding;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder> {
 
-    List<CardsModel> cardsList = new ArrayList<>();
+    private List<CardsModel> cardsList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -83,13 +81,13 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
         private final ViewDataBinding binding;
 
-        public CardsViewHolder(ViewDataBinding binding) {
+        CardsViewHolder(ViewDataBinding binding) {
             super(binding.getRoot());
 
             this.binding = binding;
         }
 
-        public void bind(CardsModel cards) {
+        void bind(CardsModel cards) {
             binding.setVariable(BR.cards, cards);
             binding.executePendingBindings();
         }
