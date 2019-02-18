@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.Environment;
+import android.view.View;
 
 import com.google.common.collect.Lists;
 
@@ -110,7 +111,7 @@ public class CardsViewModel extends ViewModel {
         this.cardsLiveData = cardsLiveData;
     }
 
-    public void newCard() {
+    public void newCard(View v) {
         System.out.println("Push button");
         String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 "Deadlifts", "50", "50", "50", "50"};

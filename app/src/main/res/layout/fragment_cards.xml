@@ -8,10 +8,6 @@
         <import type="java.time.format.DateTimeFormatter" />
 
         <variable
-            name="cards"
-            type="ch.li.k.genevalabtimerapp.cards.CardsModel" />
-
-        <variable
             name="cardsViewModel"
             type="ch.li.k.genevalabtimerapp.cards.CardsViewModel" />
     </data>
@@ -47,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() -> cardsViewModel.newCard()}"
+                android:onClick="@{cardsViewModel::newCard}"
                 android:text="@string/add" />
 
             <Button
@@ -58,7 +54,7 @@
                 android:layout_weight="1"
                 android:elevation="6dp"
                 android:gravity="center"
-                android:onClick="@{cards::addCard}"
+                android:onClick="@{cardsViewModel::newCard}"
                 android:text="@string/edit" />
 
             <Button

@@ -101,4 +101,6 @@ public class CardsModel extends BaseObservable {
         BACK,
         CHEST;
     }
+
+    // TODO: inlcude more business logic - viewModel then just exposes observables.
 }
