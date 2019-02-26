@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,9 +10,6 @@
             name="cards"
             type="ch.li.k.genevalabtimerapp.cards.CardsModel" />
 
-        <variable
-            name="cardsViewModel"
-            type="ch.li.k.genevalabtimerapp.cards.CardsViewModel" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -34,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{cards.timestamp.format(DateTimeFormatter.ofPattern(`HH:mm`))}" />
+                android:text="@{cards.timestamp.format(DateTimeFormatter.ofPattern(`HH:mm:ss`))}" />
 
             <TextView
                 android:id="@+id/tvExercise"

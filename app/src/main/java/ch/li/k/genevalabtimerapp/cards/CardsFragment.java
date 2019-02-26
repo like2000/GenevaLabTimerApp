@@ -8,11 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
+import java.util.List;
 
 import ch.li.k.genevalabtimerapp.R;
 import ch.li.k.genevalabtimerapp.databinding.FragmentCardsBinding;
@@ -44,8 +46,16 @@ public class CardsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         // TODO: Use the ViewModel
+//        try {
+//            viewModel.getCardsLiveData().observe(this, ((CardsAdapter) adapter)::setCards);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         try {
-            viewModel.getCardsLiveData().observe(this, ((CardsAdapter) adapter)::setCards);
+            viewModel.getCardsLiveData().observe(this, (List<CardsModel> cardsModelList) -> {
+                ((CardsAdapter) adapter).setCards(cardsModelList);
+                Log.d(this.getTag(), "Observe change.");
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

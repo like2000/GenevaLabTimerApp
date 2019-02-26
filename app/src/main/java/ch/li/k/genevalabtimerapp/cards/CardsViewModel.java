@@ -9,15 +9,11 @@ import android.view.View;
 import com.google.common.collect.Lists;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,54 +25,12 @@ public class CardsViewModel extends ViewModel {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
     private static final String directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             .getAbsolutePath();
-    private LiveData<List<CardsModel>> cardsLiveData;
+
+    private MutableLiveData<List<CardsModel>> cardsLiveData;
 
     public CardsViewModel() {
         cardsLiveData = new MutableLiveData<>();
-        ((MutableLiveData<List<CardsModel>>) cardsLiveData).setValue(new ArrayList<>());
-    }
-
-    public static void dump_data() throws IOException {
-        String path = directory + File.separator + filename;
-        File file = new File(path);
-        CSVPrinter writer;
-
-//        // Here, thisActivity is the current activity
-//        if (ContextCompat.checkSelfPermission(this.context,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Permission is not granted
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) this.context,
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//            } else {
-//                // No explanation needed; request the permission
-//                ActivityCompat.requestPermissions((Activity) this.context,
-//                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-//                        MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        } else {
-
-        // File exist
-        if (file.exists() && !file.isDirectory()) {
-            FileWriter mFileWriter = new FileWriter(path, true);
-            writer = new CSVPrinter(mFileWriter, CSVFormat.RFC4180);
-        } else {
-            writer = new CSVPrinter(new FileWriter(path), CSVFormat.RFC4180);
-        }
-        String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                "Lat Pulldowns", "50", "50", "50", "50"};
-
-//        writer.printRecord(data);
-        writer.close();
+        cardsLiveData.setValue(new ArrayList<>());
     }
 
 //    public void getAllCards() throws IOException {
@@ -97,31 +51,48 @@ public class CardsViewModel extends ViewModel {
 
     LiveData<List<CardsModel>> getCardsLiveData() throws IOException {
 
-        String path = directory + File.separator + filename;
-        Reader buffer = new FileReader(path);
-        CSVParser parser = CSVParser.parse(buffer, CSVFormat.RFC4180);
-        for (CSVRecord record : parser) {
-            System.out.println(Lists.newArrayList(record));
-            cardsLiveData.getValue().add(new CardsModel(Lists.newArrayList(record)));
-        }
+//        String path = directory + File.separator + filename;
+//        Reader buffer = new FileReader(path);
+//        CSVParser parser = CSVParser.parse(buffer, CSVFormat.RFC4180);
+//        for (CSVRecord record : parser) {
+//            System.out.println(Lists.newArrayList(record));
+//            cardsLiveData.getValue().add(new CardsModel(Lists.newArrayList(record)));
+//        }
+        cardsLiveData.getValue().addAll(CardsModel.readCards());
         return cardsLiveData;
     }
 
-    public void setCardsLiveData(LiveData<List<CardsModel>> cardsLiveData) {
-        this.cardsLiveData = cardsLiveData;
+//    public void setCardsLiveData(LiveData<List<CardsModel>> cardsLiveData) {
+//        this.cardsLiveData = cardsLiveData;
+//    }
+
+    public void addCard(View v) {
+        List<CardsModel> cardsList = new ArrayList<>();
+        String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                "Deadlifts", "50", "50", "50", "50"};
+
+        cardsList.add(new CardsModel(Lists.newArrayList(data)));
+        try {
+            CardsModel.writeCards(cardsList);
+            cardsList = CardsModel.readCards();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.cardsLiveData.setValue(cardsList);
     }
 
     public void newCard(View v) {
         System.out.println("Push button");
         String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 "Deadlifts", "50", "50", "50", "50"};
-        CardsModel card = new CardsModel(Lists.newArrayList(data));
-        this.cardsLiveData.getValue().add(card);
-        System.out.println(this.cardsLiveData.getValue().size());
+        this.cardsLiveData.getValue().add(new CardsModel(Lists.newArrayList(data)));
+        this.cardsLiveData.setValue(Lists.newArrayList(new CardsModel(Lists.newArrayList(data))));
+//        System.out.println(this.cardsLiveData);
     }
 
-    public void addCards(CardsModel cards) {
-        System.out.println(this.cardsLiveData.getValue());
-        this.cardsLiveData.getValue().add(cards);
-    }
+//    public void addCards(CardsModel cards) {
+//        System.out.println(this.cardsLiveData.getValue());
+//        this.cardsLiveData.getValue().add(cards);
+//    }
 }
