@@ -32,7 +32,6 @@ public class CardsFragment extends Fragment {
         binding.setCardsViewModel(viewModel);
 
         return binding.getRoot();
-//        return inflater.inflate(R.layout.fragment_cards, container, false);
     }
 
     @Override
@@ -46,15 +45,12 @@ public class CardsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         // TODO: Use the ViewModel
-//        try {
-//            viewModel.getCardsLiveData().observe(this, ((CardsAdapter) adapter)::setCards);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         try {
+//            viewModel.getCardsLiveData().observe(this, ((CardsAdapter) adapter)::setCards);
             viewModel.getCardsLiveData().observe(this, (List<CardsModel> cardsModelList) -> {
                 ((CardsAdapter) adapter).setCards(cardsModelList);
-                Log.d(this.getTag(), "Observe change.");
+                recyclerView.scrollToPosition(cardsModelList.size() - 1);
+                Log.d(this.getTag(), String.format("Observe change. Scroll to %d", cardsModelList.size() - 1));
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,15 +89,4 @@ public class CardsFragment extends Fragment {
 //            dialog.show();
 //        });
     }
-
-//    private List<CardsModel> defaultCardsList() {
-//        List<CardsModel> list = new ArrayList<>();
-//
-//        list.add(new CardsModel(LocalDateTime.now(), "Squats",
-//                12, 12, 12, 12));
-//        list.add(new CardsModel(LocalDateTime.now(), "Deadlifts",
-//                12, 12, 12, 12));
-//
-//        return list;
-//    }
 }

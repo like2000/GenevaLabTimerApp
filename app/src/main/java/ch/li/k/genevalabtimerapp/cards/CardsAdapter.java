@@ -69,15 +69,15 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     public void setCards(List<CardsModel> cardsList) {
         this.cardsList = cardsList;
-        System.out.println("Set in adapter...");
-        System.out.println(this.cardsList.size());
+//        System.out.println("Set in adapter...");
+//        System.out.println(this.cardsList.size());
         notifyDataSetChanged();
     }
 
-    public void addCards(CardsModel cards) {
-        this.cardsList.add(cards);
-        notifyDataSetChanged();
-    }
+//    public void addCards(CardsModel cards) {
+//        this.cardsList.add(cards);
+//        notifyDataSetChanged();
+//    }
 
     class CardsViewHolder extends RecyclerView.ViewHolder {
 
