@@ -24,8 +24,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
-            tools:listitem="@layout/fragment_cards_arms_item"
-            tools:text="@tools:sample/last_names">
+            tools:listitem="@layout/fragment_cards_chest_item">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -44,7 +43,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="@{cardsViewModel::addCard}"
-                android:text="@string/add" />
+                android:text="@string/add"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Button.Borderless.Colored" />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/remove"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Button.Borderless.Colored" />
 
             <Button
                 android:id="@+id/btnEdit"
@@ -55,7 +64,8 @@
                 android:elevation="6dp"
                 android:gravity="center"
                 android:onClick="@{cardsViewModel::newCard}"
-                android:text="@string/edit" />
+                android:text="@string/edit"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Button.Borderless.Colored" />
 
             <Button
                 android:id="@+id/btnSave"
@@ -65,7 +75,8 @@
                 android:layout_weight="1"
                 android:elevation="6dp"
                 android:gravity="center"
-                android:text="@string/save" />
+                android:text="@string/save"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Button.Borderless.Colored" />
 
         </LinearLayout>
 

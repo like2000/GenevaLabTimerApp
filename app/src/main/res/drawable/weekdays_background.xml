@@ -23,10 +23,10 @@
             <!--<solid android:color="@color/Lavender" />-->
             <gradient
                 android:angle="270"
-                android:centerColor="#80f8f8ff"
-                android:centerY="0.4"
-                android:endColor="#00000000"
-                android:startColor="@color/DarkKhaki" />
+                android:centerColor="#FF2F2F2F"
+                android:centerY="0.5"
+                android:endColor="@color/green"
+                android:startColor="@color/LightGreen" />
 
             <!--<padding-->
             <!--android:bottom="2dp"-->

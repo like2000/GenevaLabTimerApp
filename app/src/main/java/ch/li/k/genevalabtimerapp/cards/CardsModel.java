@@ -97,10 +97,9 @@ public class CardsModel extends BaseObservable {
 
         // File exist
         if (file.exists() && !file.isDirectory()) {
-            FileWriter mFileWriter = new FileWriter(path, true);
-            writer = new CSVPrinter(mFileWriter, CSVFormat.RFC4180);
+            writer = new CSVPrinter(new FileWriter(path, true), CSVFormat.RFC4180);
         } else {
-            writer = new CSVPrinter(new FileWriter(path), CSVFormat.RFC4180);
+            writer = new CSVPrinter(new FileWriter(path, false), CSVFormat.RFC4180);
         }
 
         for (CardsModel card : cardsList) {
@@ -111,7 +110,7 @@ public class CardsModel extends BaseObservable {
                     String.valueOf(card.set2),
                     String.valueOf(card.set3),
                     String.valueOf(card.set4)};
-            writer.printRecord(data);
+            writer.printRecord((Object[]) data);
         }
         writer.close();
     }

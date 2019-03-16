@@ -46,7 +46,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
     public int getItemViewType(int position) {
         CardsModel card = cardsList.get(position);
         if (card.getType() == CardsModel.ViewType.ARMS) {
-            return R.layout.fragment_cards_arms_item;
+            return R.layout.fragment_cards_chest_item;
         } else if (card.getType() == CardsModel.ViewType.BACK) {
             return R.layout.fragment_cards_back_item;
         } else if (card.getType() == CardsModel.ViewType.CHEST) {
