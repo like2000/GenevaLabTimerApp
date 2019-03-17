@@ -50,7 +50,7 @@ public class CardsModel extends BaseObservable {
 
     public CardsModel(ArrayList<String> stringArrayList) {
         this.timestamp = LocalDateTime.parse(stringArrayList.get(0), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.type = string2ViewType(stringArrayList.get(2));
+        this.type = string2ViewType(stringArrayList.get(1));
 //        this.set1 = Integer.parseInt(stringArrayList.get(2));
 //        this.set2 = Integer.parseInt(stringArrayList.get(3));
 //        this.set3 = Integer.parseInt(stringArrayList.get(4));
@@ -128,9 +128,9 @@ public class CardsModel extends BaseObservable {
     }
 
     ViewType string2ViewType(String type) {
-        if (type.equals("Back")) {
+        if (type.toUpperCase().equals("BACK")) {
             return ViewType.BACK;
-        } else if (type.equals("Chest")) {
+        } else if (type.toUpperCase().equals("CHEST")) {
             return ViewType.CHEST;
         } else
             throw new RuntimeException("Unknow card type: " + type);

@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:elevation="6dp"
                 android:gravity="center"
-                android:onClick="@{cardsViewModel::newCard}"
+                android:onClick="@{(v) -> cardsViewModel.newCard(v, `Chest`)}"
                 android:text="@string/edit"
                 android:textAppearance="@android:style/TextAppearance.Material.Widget.Button.Borderless.Colored" />
 
