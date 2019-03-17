@@ -46,11 +46,11 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
     public int getItemViewType(int position) {
         CardsModel card = cardsList.get(position);
         if (card.getType() == CardsModel.ViewType.ARMS) {
-            return R.layout.fragment_cards_chest_item;
+            return R.layout.fragment_cards_arms_item;
         } else if (card.getType() == CardsModel.ViewType.BACK) {
             return R.layout.fragment_cards_back_item;
         } else if (card.getType() == CardsModel.ViewType.CHEST) {
-            return R.layout.support_simple_spinner_dropdown_item;
+            return R.layout.fragment_cards_chest_item;
         } else {
 //            throw new RuntimeException("Card type must be one of ARMS, BACK or CHEST!");
             return R.layout.fragment_cards_back_item;

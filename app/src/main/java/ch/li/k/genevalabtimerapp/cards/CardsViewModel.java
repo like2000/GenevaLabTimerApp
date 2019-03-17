@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,9 @@ public class CardsViewModel extends ViewModel {
     public void addCard(View v, String type) {
         List<CardsModel> cardsList = new ArrayList<>();
 
-        String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+        String[] data = {
+                String.valueOf(LocalDateTime.now().atZone(ZoneId.of("Europe/Zurich")).toEpochSecond()),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 type};
 
         cardsList.add(new CardsModel(Lists.newArrayList(data)));
@@ -55,8 +58,9 @@ public class CardsViewModel extends ViewModel {
     }
 
     public void newCard(View v, String type) {
-        System.out.println("Push button");
-        String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+        String[] data = {
+                String.valueOf(LocalDateTime.now().atZone(ZoneId.of("Europe/Zurich")).toEpochSecond()),
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 type};
         this.cardsLiveData.getValue().add(new CardsModel(Lists.newArrayList(data)));
         this.cardsLiveData.setValue(Lists.newArrayList(new CardsModel(Lists.newArrayList(data))));

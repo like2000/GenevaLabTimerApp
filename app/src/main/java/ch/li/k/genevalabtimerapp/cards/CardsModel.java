@@ -33,6 +33,8 @@ public class CardsModel extends BaseObservable {
     private LocalDateTime timestamp;
     private String[] exercise;
     private ViewType type;
+    private int length;
+    private int id;
 
     public CardsModel(LocalDateTime timestamp, String type) {
         this.timestamp = timestamp;
@@ -49,8 +51,9 @@ public class CardsModel extends BaseObservable {
     }
 
     public CardsModel(ArrayList<String> stringArrayList) {
-        this.timestamp = LocalDateTime.parse(stringArrayList.get(0), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.type = string2ViewType(stringArrayList.get(1));
+        this.id = Integer.parseInt(stringArrayList.get(0));
+        this.timestamp = LocalDateTime.parse(stringArrayList.get(1), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.type = string2ViewType(stringArrayList.get(2));
 //        this.set1 = Integer.parseInt(stringArrayList.get(2));
 //        this.set2 = Integer.parseInt(stringArrayList.get(3));
 //        this.set3 = Integer.parseInt(stringArrayList.get(4));
@@ -108,6 +111,7 @@ public class CardsModel extends BaseObservable {
 
         for (CardsModel card : cardsList) {
             String[] data = {
+                    String.valueOf(card.id),
                     card.timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                     card.type.name(),
                     String.valueOf(card.set1),
