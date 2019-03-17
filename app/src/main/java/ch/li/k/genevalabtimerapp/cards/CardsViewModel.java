@@ -8,11 +8,6 @@ import android.view.View;
 
 import com.google.common.collect.Lists;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -66,10 +61,12 @@ public class CardsViewModel extends ViewModel {
 //        this.cardsLiveData = cardsLiveData;
 //    }
 
-    public void addCard(View v) {
+    public void addCard(View v, String type) {
         List<CardsModel> cardsList = new ArrayList<>();
-        String[] data = {LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                "Deadlifts", "50", "50", "50", "50"};
+
+        String[] data = new String[]{
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                type};
 
         cardsList.add(new CardsModel(Lists.newArrayList(data)));
         try {

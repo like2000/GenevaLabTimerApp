@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{cardsViewModel::addCard}"
+                android:onClick="@{(v) -> cardsViewModel.addCard(v, `Back`)}"
                 android:text="@string/add"
                 android:textAppearance="@android:style/TextAppearance.Material.Widget.Button.Borderless.Colored" />
 

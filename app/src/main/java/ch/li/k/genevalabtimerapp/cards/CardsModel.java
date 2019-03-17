@@ -31,8 +31,13 @@ public class CardsModel extends BaseObservable {
 
     private int set1, set2, set3, set4;
     private LocalDateTime timestamp;
-    private String exercise;
+    private String[] exercise;
     private ViewType type;
+
+    public CardsModel(LocalDateTime timestamp, String type) {
+        this.timestamp = timestamp;
+        this.type = string2ViewType(type);
+    }
 
     public CardsModel(LocalDateTime timestamp, String exercise,
                       int set1, int set2, int set3, int set4) {
@@ -41,16 +46,15 @@ public class CardsModel extends BaseObservable {
         this.set3 = set3;
         this.set4 = set4;
         this.timestamp = timestamp;
-        this.exercise = exercise;
     }
 
     public CardsModel(ArrayList<String> stringArrayList) {
         this.timestamp = LocalDateTime.parse(stringArrayList.get(0), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.set1 = Integer.parseInt(stringArrayList.get(2));
-        this.set2 = Integer.parseInt(stringArrayList.get(3));
-        this.set3 = Integer.parseInt(stringArrayList.get(4));
-        this.set4 = Integer.parseInt(stringArrayList.get(5));
-        this.exercise = stringArrayList.get(1);
+        this.type = string2ViewType(stringArrayList.get(2));
+//        this.set1 = Integer.parseInt(stringArrayList.get(2));
+//        this.set2 = Integer.parseInt(stringArrayList.get(3));
+//        this.set3 = Integer.parseInt(stringArrayList.get(4));
+//        this.set4 = Integer.parseInt(stringArrayList.get(5));
     }
 
     static List<CardsModel> readCards() throws IOException {
@@ -105,7 +109,7 @@ public class CardsModel extends BaseObservable {
         for (CardsModel card : cardsList) {
             String[] data = {
                     card.timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                    card.exercise,
+                    card.type.name(),
                     String.valueOf(card.set1),
                     String.valueOf(card.set2),
                     String.valueOf(card.set3),
@@ -121,6 +125,15 @@ public class CardsModel extends BaseObservable {
 
     public void setType(ViewType type) {
         this.type = type;
+    }
+
+    ViewType string2ViewType(String type) {
+        if (type.equals("Back")) {
+            return ViewType.BACK;
+        } else if (type.equals("Chest")) {
+            return ViewType.CHEST;
+        } else
+            throw new RuntimeException("Unknow card type: " + type);
     }
 
     public int getSet1() {
@@ -163,19 +176,10 @@ public class CardsModel extends BaseObservable {
         this.timestamp = timestamp;
     }
 
-    public String getExercise() {
-        return exercise;
-    }
-
-    public void setExercise(String exercise) {
-        this.exercise = exercise;
-    }
-
     public enum ViewType {
         ARMS,
         BACK,
         CHEST;
     }
-
-    // TODO: inlcude more business logic - viewModel then just exposes observables.
+// TODO: inlcude more business logic - viewModel then just exposes observables.
 }
