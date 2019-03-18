@@ -4,17 +4,21 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class TicTocGenerator {
+public class TicTocModel {
 
-    public Duration duration;
     private LocalDateTime timestamp;
+    private Duration duration;
     private LocalDate date;
     private String event;
 
-    public TicTocGenerator(LocalDate date, String event) {
+    public TicTocModel(LocalDate date, String event) {
         this.date = date;
         this.event = event;
         this.timestamp = LocalDateTime.now();
+    }
+
+    public TicTocModel(String[] ticTocData) {
+
     }
 
     public Duration getDuration() {
@@ -30,6 +34,10 @@ public class TicTocGenerator {
     }
 
     public void writeCsv() {
+
+    }
+
+    public void writeTicTocData(String[] ticTocData) {
 
     }
 

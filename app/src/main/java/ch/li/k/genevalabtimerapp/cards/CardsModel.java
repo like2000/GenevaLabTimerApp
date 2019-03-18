@@ -36,6 +36,10 @@ public class CardsModel extends BaseObservable {
     private int length;
     private int id;
 
+    public CardsModel(String[] cardsData) {
+        // 1d list of cards data - entry 0 and 1 are ids; then follow pattern
+    }
+
     public CardsModel(LocalDateTime timestamp, String type) {
         this.timestamp = timestamp;
         this.type = string2ViewType(type);
@@ -123,15 +127,15 @@ public class CardsModel extends BaseObservable {
         writer.close();
     }
 
+    void writeCardsData(String[] cardsData) {
+        // 1d list of cards data - entry 0 and 1 are ids; then follow pattern
+    }
+
     ViewType getType() {
         return type;
     }
 
-    public void setType(ViewType type) {
-        this.type = type;
-    }
-
-    ViewType string2ViewType(String type) {
+    private ViewType string2ViewType(String type) {
         if (type.toUpperCase().equals("BACK")) {
             return ViewType.BACK;
         } else if (type.toUpperCase().equals("CHEST")) {
@@ -174,10 +178,6 @@ public class CardsModel extends BaseObservable {
 
     public LocalDateTime getTimestamp() {
         return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
     }
 
     public enum ViewType {
