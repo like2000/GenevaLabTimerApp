@@ -11,5 +11,6 @@
     <string name="remove">Remove</string>
     <string name="stop">Stop</string>
     <string name="start">Start</string>
-    <string name="new_tic">New Tic</string>
+    <string name="new">New</string>
+    <string name="new_tic">Create Timestamp</string>
 </resources>
