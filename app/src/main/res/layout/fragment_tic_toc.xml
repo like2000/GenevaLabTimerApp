@@ -44,30 +44,35 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
+            style="?attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/btn_new_tic"
+                style="?attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/new_tic" />
+                android:text="@string/new_timestamp" />
         </TableRow>
 
         <TableRow
+            style="?attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
                 android:id="@+id/btn_new"
+                style="?attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/new" />
+                android:text="@string/new_tic" />
 
             <Button
                 android:id="@+id/btn_stop"
+                style="?attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -75,6 +80,7 @@
 
             <Button
                 android:id="@+id/btn_start"
+                style="?attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
