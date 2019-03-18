@@ -9,4 +9,7 @@
     <string name="back">Back</string>
     <string name="arms">Arms</string>
     <string name="remove">Remove</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
+    <string name="new_tic">New Tic</string>
 </resources>
