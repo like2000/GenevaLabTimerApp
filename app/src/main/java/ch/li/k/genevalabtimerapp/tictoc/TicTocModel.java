@@ -1,5 +1,7 @@
 package ch.li.k.genevalabtimerapp.tictoc;
 
+import android.view.View;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +21,11 @@ public class TicTocModel {
 
     public TicTocModel(String[] ticTocData) {
 
+    }
+
+    public void newTimestamp(View v) {
+        System.out.println("Hello!" + this.timestamp.toString());
+        this.timestamp = LocalDateTime.now();
     }
 
     public Duration getDuration() {

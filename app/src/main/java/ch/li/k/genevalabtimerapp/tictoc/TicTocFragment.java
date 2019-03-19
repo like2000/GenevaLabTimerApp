@@ -28,8 +28,9 @@ public class TicTocFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        // Bit of binding to be done here?
         mViewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
         // TODO: Use the ViewModel
     }
-
 }

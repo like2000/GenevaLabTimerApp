@@ -10,6 +10,7 @@
         <variable
             name="cardsViewModel"
             type="ch.li.k.genevalabtimerapp.cards.CardsViewModel" />
+
     </data>
 
     <LinearLayout
