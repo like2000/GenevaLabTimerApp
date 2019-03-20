@@ -24,7 +24,8 @@ public class TicTocFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentTicTocBinding.inflate(inflater, container, false);
-        binding.setTictoc(new TicTocModel(new String[] {""}));
+        binding.setLifecycleOwner(this);
+
         return binding.getRoot();
     }
 
@@ -32,8 +33,7 @@ public class TicTocFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Bit of binding to be done here?
         viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
-        // TODO: Use the ViewModel
+        binding.setTictoc(viewModel);
     }
 }

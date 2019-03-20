@@ -2,6 +2,7 @@ package ch.li.k.genevalabtimerapp.tictoc;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.os.Environment;
 import android.view.View;
 
 import java.time.Duration;
@@ -12,8 +13,13 @@ import ch.li.k.genevalabtimerapp.BR;
 
 public class TicTocModel extends BaseObservable {
 
+    private static final String filename = "tictoc_output.csv";
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
+    private static final String directory = Environment
+            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            .getAbsolutePath();
+
     private LocalDateTime timestamp;
-    private Duration duration;
     private LocalDate date;
     private String event;
 
@@ -33,7 +39,7 @@ public class TicTocModel extends BaseObservable {
     }
 
     public Duration getDuration() {
-        duration = Duration.between(
+        Duration duration = Duration.between(
                 LocalDateTime.now(),
                 LocalDateTime.of(2018, 12, 1, 12, 00, 00));
 

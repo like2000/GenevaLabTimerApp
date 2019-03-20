@@ -2,30 +2,52 @@ package ch.li.k.genevalabtimerapp.tictoc;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.view.View;
+
+import java.time.LocalDateTime;
 
 public class TicTocViewModel extends AndroidViewModel {
 
-    private static final String filename = "test_output.csv";
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
-    private static final String directory = Environment
-            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .getAbsolutePath();
+    private MutableLiveData<TicTocModel> modelMutableLiveData;
+    private MutableLiveData<LocalDateTime> timestampMutableLiveData;
 
     public TicTocViewModel(@NonNull Application application) {
         super(application);
+
+        this.timestampMutableLiveData = new MutableLiveData<>();
+        this.timestampMutableLiveData.setValue(LocalDateTime.now());
     }
 
-    @NonNull
-    @Override
-    public <T extends Application> T getApplication() {
-        return super.getApplication();
+    public void newTimestamp(View v) {
+        this.timestampMutableLiveData.setValue(LocalDateTime.now());
+        System.out.println(this.timestampMutableLiveData.getValue().toString());
+//        notify();
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
+    public MutableLiveData<LocalDateTime> getTimestampMutableLiveData() {
+        return timestampMutableLiveData;
     }
+
+    public void setTimestampMutableLiveData(MutableLiveData<LocalDateTime> timestampMutableLiveData) {
+        this.timestampMutableLiveData = timestampMutableLiveData;
+    }
+
+    //    public TicTocViewModel(@NonNull Application application) {
+//        super(application);
+//    }
+//
+//    @NonNull
+//    @Override
+//    public <T extends Application> T getApplication() {
+//        return super.getApplication();
+//    }
+//
+//    @Override
+//    protected void onCleared() {
+//        super.onCleared();
+//    }
 }

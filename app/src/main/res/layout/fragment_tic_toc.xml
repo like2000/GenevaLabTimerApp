@@ -9,7 +9,7 @@
 
         <variable
             name="tictoc"
-            type="ch.li.k.genevalabtimerapp.tictoc.TicTocModel" />
+            type="ch.li.k.genevalabtimerapp.tictoc.TicTocViewModel" />
 
     </data>
 
@@ -24,7 +24,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{tictoc.timestamp.format(DateTimeFormatter.ofPattern(`eee HH:mm:ss`))}"
+            android:text="@{tictoc.timestampMutableLiveData.format(DateTimeFormatter.ofPattern(`eee HH:mm:ss`))}"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
