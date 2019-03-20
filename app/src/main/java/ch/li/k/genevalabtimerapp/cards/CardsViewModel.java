@@ -17,11 +17,6 @@ import java.util.List;
 
 public class CardsViewModel extends ViewModel {
 
-    private static final String filename = "geneva_data.csv";
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
-    private static final String directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .getAbsolutePath();
-
     private MutableLiveData<List<CardsModel>> cardsLiveData;
 
     public CardsViewModel() {

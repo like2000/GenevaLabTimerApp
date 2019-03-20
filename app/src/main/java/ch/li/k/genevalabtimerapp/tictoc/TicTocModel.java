@@ -1,12 +1,16 @@
 package ch.li.k.genevalabtimerapp.tictoc;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.view.View;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class TicTocModel {
+import ch.li.k.genevalabtimerapp.BR;
+
+public class TicTocModel extends BaseObservable {
 
     private LocalDateTime timestamp;
     private Duration duration;
@@ -20,12 +24,12 @@ public class TicTocModel {
     }
 
     public TicTocModel(String[] ticTocData) {
-
+        this.timestamp = LocalDateTime.now();
     }
 
     public void newTimestamp(View v) {
-        System.out.println("Hello!" + this.timestamp.toString());
-        this.timestamp = LocalDateTime.now();
+        setTimestamp(LocalDateTime.now());
+        notifyPropertyChanged(BR.timestamp);
     }
 
     public Duration getDuration() {
@@ -48,6 +52,7 @@ public class TicTocModel {
 
     }
 
+    @Bindable
     public LocalDateTime getTimestamp() {
         return timestamp;
     }

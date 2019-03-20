@@ -9,11 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ch.li.k.genevalabtimerapp.R;
+import ch.li.k.genevalabtimerapp.databinding.FragmentTicTocBinding;
 
 public class TicTocFragment extends Fragment {
 
-    private TicTocViewModel mViewModel;
+    private FragmentTicTocBinding binding;
+    private TicTocViewModel viewModel;
 
     public static TicTocFragment newInstance() {
         return new TicTocFragment();
@@ -22,7 +23,9 @@ public class TicTocFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tic_toc, container, false);
+        binding = FragmentTicTocBinding.inflate(inflater, container, false);
+        binding.setTictoc(new TicTocModel(new String[] {""}));
+        return binding.getRoot();
     }
 
     @Override
@@ -30,7 +33,7 @@ public class TicTocFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Bit of binding to be done here?
-        mViewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
         // TODO: Use the ViewModel
     }
 }
