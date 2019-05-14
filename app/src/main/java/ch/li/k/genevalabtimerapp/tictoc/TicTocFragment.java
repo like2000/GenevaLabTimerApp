@@ -14,10 +14,8 @@ import ch.li.k.genevalabtimerapp.databinding.FragmentTicTocBinding;
 public class TicTocFragment extends Fragment {
 
     private FragmentTicTocBinding binding;
-    private TicTocViewModel viewModel;
 
-    public static TicTocFragment newInstance() {
-        return new TicTocFragment();
+    public TicTocFragment() {
     }
 
     @Override
@@ -33,7 +31,7 @@ public class TicTocFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
+        TicTocViewModel viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
         binding.setTictoc(viewModel);
     }
 }
