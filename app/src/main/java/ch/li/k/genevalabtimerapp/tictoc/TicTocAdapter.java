@@ -40,10 +40,10 @@ public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocView
         notifyDataSetChanged();
     }
 
-    public class TicTocViewHolder extends RecyclerView.ViewHolder {
+    class TicTocViewHolder extends RecyclerView.ViewHolder {
         private final ViewDataBinding binding;
 
-        public TicTocViewHolder(@NonNull ViewDataBinding binding) {
+        TicTocViewHolder(@NonNull ViewDataBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
