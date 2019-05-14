@@ -3,13 +3,16 @@ package ch.li.k.genevalabtimerapp.tictoc;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Environment;
-import android.view.View;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import ch.li.k.genevalabtimerapp.BR;
 
 public class TicTocModel extends BaseObservable {
 
@@ -33,10 +36,10 @@ public class TicTocModel extends BaseObservable {
         this.timestamp = LocalDateTime.now();
     }
 
-    public void newTimestamp(View v) {
-        setTimestamp(LocalDateTime.now());
-        notifyPropertyChanged(BR.timestamp);
-    }
+//    public void newTimestamp(View v) {
+//        setTimestamp(LocalDateTime.now());
+//        notifyPropertyChanged(BR.timestamp);
+//    }
 
     public Duration getDuration() {
         Duration duration = Duration.between(
@@ -50,8 +53,31 @@ public class TicTocModel extends BaseObservable {
 
     }
 
-    public void writeCsv() {
+    public void writeCsv() throws IOException {
+        String path = directory + File.separator + filename;
+        File file = new File(path);
+        CSVPrinter writer;
 
+        // File exist
+        if (file.exists() && !file.isDirectory()) {
+            writer = new CSVPrinter(new FileWriter(path, true), CSVFormat.RFC4180);
+        } else {
+            writer = new CSVPrinter(new FileWriter(path, false), CSVFormat.RFC4180);
+        }
+
+//        for (CardsModel card : cardsList) {
+//            String[] data = {
+//                    String.valueOf(card.id),
+//                    card.timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+//                    card.type.name(),
+//                    String.valueOf(card.set1),
+//                    String.valueOf(card.set2),
+//                    String.valueOf(card.set3),
+//                    String.valueOf(card.set4)};
+//            writer.printRecord((Object[]) data);
+//        }
+
+        writer.close();
     }
 
     public void writeTicTocData(String[] ticTocData) {

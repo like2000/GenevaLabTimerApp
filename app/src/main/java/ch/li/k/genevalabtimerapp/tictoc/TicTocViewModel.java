@@ -3,11 +3,10 @@ package ch.li.k.genevalabtimerapp.tictoc;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class TicTocViewModel extends AndroidViewModel {
@@ -18,14 +17,32 @@ public class TicTocViewModel extends AndroidViewModel {
     public TicTocViewModel(@NonNull Application application) {
         super(application);
 
+        this.modelMutableLiveData = new MutableLiveData<>();
+
         this.timestampMutableLiveData = new MutableLiveData<>();
         this.timestampMutableLiveData.setValue(LocalDateTime.now());
+
+    }
+
+    public void newEntry() {
+//        List<TicTocModel> modelList = new ArrayList<>();
+//        TicTocModel model = this.modelMutableLiveData.getValue();
+        TicTocModel model = new TicTocModel(new String[]{"a", "b"});
+        modelMutableLiveData.setValue(model);
+    }
+
+    public void writeEntry(View v) {
+        newEntry();
+        try {
+            this.modelMutableLiveData.getValue().writeCsv();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void newTimestamp(View v) {
         this.timestampMutableLiveData.setValue(LocalDateTime.now());
         System.out.println(this.timestampMutableLiveData.getValue().toString());
-//        notify();
     }
 
     public MutableLiveData<LocalDateTime> getTimestampMutableLiveData() {

@@ -81,15 +81,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{tictoc::writeEntry}"
                     android:text="@string/new_tic" />
-
-                <Button
-                    android:id="@+id/btn_stop"
-                    style="?attr/buttonBarButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/stop" />
 
                 <Button
                     android:id="@+id/btn_start"
@@ -98,6 +91,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/start" />
+
+                <Button
+                    android:id="@+id/btn_stop"
+                    style="?attr/buttonBarButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/stop" />
 
             </TableRow>
 
