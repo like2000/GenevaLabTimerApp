@@ -1,7 +1,5 @@
 package ch.li.k.genevalabtimerapp.tictoc;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 import android.os.Environment;
 
 import org.apache.commons.csv.CSVFormat;
@@ -14,7 +12,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class TicTocModel extends BaseObservable {
+public class TicTocModel {
 
     private static final String filename = "tictoc_output.csv";
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
@@ -32,7 +30,7 @@ public class TicTocModel extends BaseObservable {
         this.timestamp = LocalDateTime.now();
     }
 
-    public TicTocModel(String[] ticTocData) {
+    TicTocModel(String[] ticTocData) {
         this.timestamp = LocalDateTime.now();
     }
 
@@ -53,7 +51,7 @@ public class TicTocModel extends BaseObservable {
 
     }
 
-    public void writeCsv() throws IOException {
+    void writeCsv() throws IOException {
         String path = directory + File.separator + filename;
         File file = new File(path);
         CSVPrinter writer;
@@ -80,11 +78,6 @@ public class TicTocModel extends BaseObservable {
         writer.close();
     }
 
-    public void writeTicTocData(String[] ticTocData) {
-
-    }
-
-    @Bindable
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
