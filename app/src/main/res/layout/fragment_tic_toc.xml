@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_marginBottom="8dp"
-            android:text="@{tictoc.timestampMutableLiveData.format(DateTimeFormatter.ofPattern(`eee HH:mm:ss`))}"
+            android:text="@{tictoc.mutableTimestamp.format(DateTimeFormatter.ofPattern(`eee HH:mm:ss`))}"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
