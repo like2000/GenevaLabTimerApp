@@ -46,7 +46,7 @@ public class TicTocViewModel extends AndroidViewModel {
 
         this.executorService = Executors.newSingleThreadExecutor();
 
-        this.initData();
+//        this.initData();
     }
 
     void initData() {
@@ -68,26 +68,20 @@ public class TicTocViewModel extends AndroidViewModel {
         }
     }
 
-    public MutableLiveData<List<TicTocModel>> getMutableTicTocModelList() {
+    MutableLiveData<List<TicTocModel>> getMutableTicTocModelList() {
         return mutableTicTocModelList;
-    }
-
-    public void setMutableTicTocModelList(MutableLiveData<List<TicTocModel>> mutableTicTocModelList) {
-        this.mutableTicTocModelList = mutableTicTocModelList;
     }
 
     private void newEntry() {
         List<TicTocModel> ticTcModelList = mutableTicTocModelList.getValue();
-        ticTcModelList = new ArrayList<>();
-        try {
-            for (int i = 0; i < 10; i++) {
-                ticTcModelList.add(new TicTocModel(new String[]{"a", "b"}));
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        if (ticTcModelList == null)
+            ticTcModelList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            ticTcModelList.add(new TicTocModel(new String[]{"a", "b"}));
         }
+
         mutableTicTocModelList.setValue(ticTcModelList);
-        System.out.println(ticTcModelList);
     }
 
     public void writeEntry(View v) {

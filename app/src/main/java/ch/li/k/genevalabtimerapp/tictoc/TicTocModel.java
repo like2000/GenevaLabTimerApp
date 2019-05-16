@@ -31,6 +31,8 @@ public class TicTocModel {
     }
 
     TicTocModel(String[] ticTocData) {
+        this.event = ticTocData[0];
+        this.date = LocalDate.now();
         this.timestamp = LocalDateTime.now();
     }
 
