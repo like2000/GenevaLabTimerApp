@@ -46,7 +46,7 @@ public class TicTocViewModel extends AndroidViewModel {
 
         this.executorService = Executors.newSingleThreadExecutor();
 
-//        this.initData();
+        this.initData();
     }
 
     void initData() {

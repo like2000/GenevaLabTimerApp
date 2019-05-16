@@ -39,16 +39,15 @@ public class TicTocFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         RecyclerView recyclerView = getActivity().findViewById(R.id.rvTimesList);
-        RecyclerView.Adapter adapter = new TicTocAdapter();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new TicTocAdapter());
 
         TicTocViewModel viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
         viewModel.getMutableTicTocModelList().observe(this, new Observer<List<TicTocModel>>() {
             @Override
             public void onChanged(@Nullable List<TicTocModel> ticTocModels) {
-                ((TicTocAdapter) adapter).setTicTocModelList((ArrayList<TicTocModel>) ticTocModels);
+                ((TicTocAdapter) recyclerView.getAdapter())
+                        .setTicTocModelList((ArrayList<TicTocModel>) ticTocModels);
             }
         });
 
