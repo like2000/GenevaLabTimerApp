@@ -1,7 +1,6 @@
 package ch.li.k.genevalabtimerapp.tictoc;
 
 import android.Manifest;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -27,11 +26,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import ch.li.k.genevalabtimerapp.R;
 import ch.li.k.genevalabtimerapp.databinding.FragmentTicTocBinding;
 
 public class TicTocFragment extends Fragment {
@@ -42,6 +38,7 @@ public class TicTocFragment extends Fragment {
             .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             .getAbsolutePath();
 
+    private RecyclerView recyclerView;
     private FragmentTicTocBinding binding;
 
     public TicTocFragment() {
@@ -101,7 +98,7 @@ public class TicTocFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentTicTocBinding.inflate(inflater, container, false);
-        binding.setLifecycleOwner(this);
+        recyclerView = binding.rvTimesList;
 
         return binding.getRoot();
     }
@@ -116,19 +113,19 @@ public class TicTocFragment extends Fragment {
             e.printStackTrace();
         }
 
-        RecyclerView recyclerView = getActivity().findViewById(R.id.rvTimesList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new TicTocAdapter());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         TicTocViewModel viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
-        viewModel.getMutableTicTocModelList().observe(this, new Observer<List<TicTocModel>>() {
-            @Override
-            public void onChanged(@Nullable List<TicTocModel> ticTocModels) {
-                ((TicTocAdapter) recyclerView.getAdapter())
-                        .setTicTocModelList((ArrayList<TicTocModel>) ticTocModels);
-            }
-        });
+//        viewModel.getMutableTicTocModelList().observe(this, new Observer<List<TicTocModel>>() {
+//            @Override
+//            public void onChanged(@Nullable List<TicTocModel> ticTocModels) {
+//                ((TicTocAdapter) recyclerView.getAdapter())
+//                        .setTicTocModelList((ArrayList<TicTocModel>) ticTocModels);
+//            }
+//        });
 
-        binding.setTictoc(viewModel);
+        binding.setLifecycleOwner(this);
+        binding.setViewModel(viewModel);
     }
 }

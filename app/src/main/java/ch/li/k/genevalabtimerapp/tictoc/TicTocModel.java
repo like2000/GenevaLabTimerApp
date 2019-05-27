@@ -1,24 +1,10 @@
 package ch.li.k.genevalabtimerapp.tictoc;
 
-import android.os.Environment;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TicTocModel {
-
-//    private static final String filename = "tictoc_output.csv";
-//    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
-//    private static final String directory = Environment
-//            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-//            .getAbsolutePath();
 
     private LocalDateTime timestamp;
     private LocalDate date;
@@ -30,7 +16,7 @@ public class TicTocModel {
         this.timestamp = LocalDateTime.now();
     }
 
-    TicTocModel(String[] ticTocData) {
+    public TicTocModel(String[] ticTocData) {
         this.event = ticTocData[0];
         this.date = LocalDate.now();
         this.timestamp = LocalDateTime.now();
@@ -53,33 +39,6 @@ public class TicTocModel {
 
     }
 
-//    void writeCsv() throws IOException {
-//        String path = directory + File.separator + filename;
-//        File file = new File(path);
-//        CSVPrinter writer;
-//
-//        // File exist
-//        if (file.exists() && !file.isDirectory()) {
-//            writer = new CSVPrinter(new FileWriter(path, true), CSVFormat.RFC4180);
-//        } else {
-//            writer = new CSVPrinter(new FileWriter(path, false), CSVFormat.RFC4180);
-//        }
-//
-////        for (CardsModel card : cardsList) {
-////            String[] data = {
-////                    String.valueOf(card.id),
-////                    card.timestamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-////                    card.type.name(),
-////                    String.valueOf(card.set1),
-////                    String.valueOf(card.set2),
-////                    String.valueOf(card.set3),
-////                    String.valueOf(card.set4)};
-////            writer.printRecord((Object[]) data);
-////        }
-//
-//        writer.close();
-//    }
-
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -90,10 +49,6 @@ public class TicTocModel {
 
     public LocalDate getDate() {
         return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public String getEvent() {

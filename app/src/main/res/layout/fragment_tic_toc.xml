@@ -8,7 +8,7 @@
         <import type="java.time.format.DateTimeFormatter" />
 
         <variable
-            name="tictoc"
+            name="viewModel"
             type="ch.li.k.genevalabtimerapp.tictoc.TicTocViewModel" />
 
     </data>
@@ -35,7 +35,7 @@
             android:layout_height="72dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="@{tictoc.mutableTimestamp.format(DateTimeFormatter.ofPattern(`eee HH:mm:ss`))}"
+            android:text="@{viewModel.globalTimeStamp.format(DateTimeFormatter.ofPattern(`eee HH:mm:ss`))}"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -63,7 +63,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{tictoc::newTimestamp}"
+                    android:onClick="@{viewModel::createGlobalTimeStamp}"
                     android:text="@string/new_timestamp" />
             </TableRow>
 
@@ -78,7 +78,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{tictoc::writeEntry}"
+                    android:onClick="@{viewModel::newEntry}"
                     android:text="@string/new_tic" />
 
                 <Button
