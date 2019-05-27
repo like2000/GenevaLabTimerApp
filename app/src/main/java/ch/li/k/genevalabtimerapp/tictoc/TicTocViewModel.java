@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,11 @@ public class TicTocViewModel extends AndroidViewModel {
     private MutableLiveData<TicTocModel> mutableTicTocModel;
     private MutableLiveData<LocalDateTime> mutableTimestamp;
     private MutableLiveData<List<TicTocModel>> mutableTicTocModelList;
+
+    private MutableLiveData<List<LocalDateTime>> timeStamp;
+    private MutableLiveData<List<LocalDateTime>> startTime;
+    private MutableLiveData<List<LocalDateTime>> stopTime;
+    private MutableLiveData<List<Duration>> duration;
 
     public TicTocViewModel(@NonNull Application application) {
         super(application);

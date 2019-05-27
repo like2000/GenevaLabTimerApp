@@ -24,6 +24,10 @@ public class CardsFragment extends Fragment {
     FragmentCardsBinding binding;
     CardsViewModel viewModel;
 
+    public CardsFragment() {
+
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -55,38 +59,5 @@ public class CardsFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        FloatingActionButton fab = getActivity().findViewById(R.id.fabAddCard);
-//        fab.setOnClickListener((l) -> {
-////            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.select_dialog_item);
-//            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(Objects.requireNonNull(this.getContext()), android.R.layout.simple_selectable_list_item);
-//            arrayAdapter.add("Back");
-//            arrayAdapter.add("Chest");
-//            arrayAdapter.add("General");
-//
-//            AlertDialog dialog = new AlertDialog.Builder(this.getContext())
-//                    .setTitle("Selection")
-//                    .setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            CardsModel cards = new CardsModel(LocalDateTime.now(), arrayAdapter.getItem(i),
-//                                    12, 12, 12, 12);
-//                            try {
-//                                viewModel.getCardsLiveData();
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-////                            ((CardsAdapter) adapter).addCards();
-////                            try {
-////                                viewModel.getCardsLiveData().
-////                                viewModel.dump_data();
-////                            } catch (IOException e) {
-////                                e.printStackTrace();
-////                            }
-//                        }
-//                    })
-//                    .create();
-//            dialog.show();
-//        });
     }
 }

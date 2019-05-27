@@ -58,10 +58,6 @@ public class CardsModel extends BaseObservable {
         this.id = Integer.parseInt(stringArrayList.get(0));
         this.timestamp = LocalDateTime.parse(stringArrayList.get(1), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.type = string2ViewType(stringArrayList.get(2));
-//        this.set1 = Integer.parseInt(stringArrayList.get(2));
-//        this.set2 = Integer.parseInt(stringArrayList.get(3));
-//        this.set3 = Integer.parseInt(stringArrayList.get(4));
-//        this.set4 = Integer.parseInt(stringArrayList.get(5));
     }
 
     static List<CardsModel> readCards() throws IOException {
@@ -142,38 +138,6 @@ public class CardsModel extends BaseObservable {
             return ViewType.CHEST;
         } else
             throw new RuntimeException("Unknow card type: " + type);
-    }
-
-    public int getSet1() {
-        return set1;
-    }
-
-    public void setSet1(int set1) {
-        this.set1 = set1;
-    }
-
-    public int getSet2() {
-        return set2;
-    }
-
-    public void setSet2(int set2) {
-        this.set2 = set2;
-    }
-
-    public int getSet3() {
-        return set3;
-    }
-
-    public void setSet3(int set3) {
-        this.set3 = set3;
-    }
-
-    public int getSet4() {
-        return set4;
-    }
-
-    public void setSet4(int set4) {
-        this.set4 = set4;
     }
 
     public LocalDateTime getTimestamp() {

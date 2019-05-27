@@ -3,7 +3,6 @@ package ch.li.k.genevalabtimerapp.cards;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.os.Environment;
 import android.view.View;
 
 import com.google.common.collect.Lists;
@@ -28,10 +27,6 @@ public class CardsViewModel extends ViewModel {
         cardsLiveData.getValue().addAll(CardsModel.readCards());
         return cardsLiveData;
     }
-
-//    public void setCardsLiveData(LiveData<List<CardsModel>> cardsLiveData) {
-//        this.cardsLiveData = cardsLiveData;
-//    }
 
     public void addCard(View v, String type) {
         List<CardsModel> cardsList = new ArrayList<>();
@@ -60,9 +55,4 @@ public class CardsViewModel extends ViewModel {
         this.cardsLiveData.getValue().add(new CardsModel(Lists.newArrayList(data)));
         this.cardsLiveData.setValue(Lists.newArrayList(new CardsModel(Lists.newArrayList(data))));
     }
-
-//    public void addCards(CardsModel cards) {
-//        System.out.println(this.cardsLiveData.getValue());
-//        this.cardsLiveData.getValue().add(cards);
-//    }
 }

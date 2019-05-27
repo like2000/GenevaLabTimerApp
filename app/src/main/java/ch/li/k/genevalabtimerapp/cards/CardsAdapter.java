@@ -18,36 +18,22 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     private List<CardsModel> cardsList = new ArrayList<>();
 
+    CardsAdapter() {
+    }
+
     @NonNull
     @Override
     public CardsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View itemBinding;
-        int layoutId = viewType;
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ViewDataBinding binding = DataBindingUtil.inflate(inflater, layoutId, parent, false);
+        ViewDataBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(parent.getContext()), viewType, parent, false);
 
-        CardsViewHolder viewHolder = new CardsViewHolder(binding);
-        return viewHolder;
-
-//        if (viewType == ARMS_TYPE) {
-//            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
-//                    inflater, parent, false);
-//            return new CardsViewHolder(itemBinding);
-//        } else if (viewType == BACK_TYPE) {
-//            FragmentCardsArmsItemBinding itemBinding = FragmentCardsArmsItemBinding.inflate(
-//                    inflater, parent, false);
-//            return new CardsViewHolder(itemBinding);
-//        } else {
-//            throw new RuntimeException("Unknown type!");
-//        }
+        return new CardsViewHolder(binding);
     }
 
     @Override
     public int getItemViewType(int position) {
         CardsModel card = cardsList.get(position);
-        if (card.getType() == CardsModel.ViewType.ARMS) {
-            return R.layout.fragment_cards_arms_item;
-        } else if (card.getType() == CardsModel.ViewType.BACK) {
+        if (card.getType() == CardsModel.ViewType.BACK) {
             return R.layout.fragment_cards_back_item;
         } else if (card.getType() == CardsModel.ViewType.CHEST) {
             return R.layout.fragment_cards_chest_item;
@@ -58,8 +44,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardsViewHolder holder, int ix) {
-        holder.bind(cardsList.get(ix));
+    public void onBindViewHolder(@NonNull CardsViewHolder holder, int position) {
+        holder.bind(cardsList.get(position));
     }
 
     @Override
@@ -69,15 +55,8 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     public void setCards(List<CardsModel> cardsList) {
         this.cardsList = cardsList;
-//        System.out.println("Set in adapter...");
-//        System.out.println(this.cardsList.size());
         notifyDataSetChanged();
     }
-
-//    public void addCards(CardsModel cards) {
-//        this.cardsList.add(cards);
-//        notifyDataSetChanged();
-//    }
 
     class CardsViewHolder extends RecyclerView.ViewHolder {
 
@@ -94,20 +73,4 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
             binding.executePendingBindings();
         }
     }
-
-//    class CardsViewHolder extends RecyclerView.ViewHolder {
-//
-//        private final FragmentCardsArmsItemBinding binding;
-//
-//        public CardsViewHolder(FragmentCardsArmsItemBinding binding) {
-//            super(binding.getRoot());
-//
-//            this.binding = binding;
-//        }
-//
-//        public void bind(CardsModel cards) {
-//            binding.setCards(cards);
-//            binding.executePendingBindings();
-//        }
-//    }
 }
