@@ -25,9 +25,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
-            tools:listitem="@layout/fragment_cards_chest_item">
-
-        </android.support.v7.widget.RecyclerView>
+            tools:listitem="@layout/fragment_cards_chest_item" />
 
         <LinearLayout
             style="?attr/buttonBarStyle"

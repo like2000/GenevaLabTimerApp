@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,8 +47,7 @@ public class TicTocFragment extends Fragment {
     public TicTocFragment() {
     }
 
-    void initFileStream() {
-        // Here, thisActivity is the current activity
+    void initFileStream() throws IOException {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -62,28 +63,37 @@ public class TicTocFragment extends Fragment {
                 ActivityCompat.requestPermissions(getActivity(),
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE);
-
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
             }
         } else {
             // File exist
-            try {
-                CSVParser parser = new CSVParser(new FileReader(directory + "/" + filename), CSVFormat.RFC4180);
-                for (CSVRecord record : parser.getRecords()) System.out.println(record);
-            } catch (IOException errRead) {
-                try {
-                    Random rng = new Random();
-                    CSVPrinter writer = new CSVPrinter(new FileWriter(directory + "/" + filename), CSVFormat.RFC4180);
-                    for (int i = 0; i < 10; i++) {
-                        writer.printRecord(new int[]{rng.nextInt(), rng.nextInt(), rng.nextInt(), rng.nextInt()});
-                    }
-                } catch (IOException errWrite) {
-                    errWrite.printStackTrace();
-                }
-                errRead.printStackTrace();
-            }
+            File file = new File(directory + "/" + filename);
+            Log.d("DEBUG", "Write new file...");
+            Random rng = new Random();
+            CSVPrinter writer = new CSVPrinter(new FileWriter(directory + "/" + filename), CSVFormat.RFC4180);
+            for (int i = 0; i < 10; i++)
+                writer.printRecord(String.valueOf(rng.nextInt()), String.valueOf(rng.nextInt()), String.valueOf(rng.nextInt()), String.valueOf(rng.nextInt()));
+            writer.close();
+
+            Log.d("DEBUG", "Print file content...");
+            CSVParser parser = new CSVParser(new FileReader(directory + "/" + filename), CSVFormat.RFC4180);
+            for (CSVRecord record : parser.getRecords()) System.out.println(record);
+
+//            if (file.exists()) {
+//                Log.d("DEBUG", "Print file content...");
+//                CSVParser parser = new CSVParser(new FileReader(directory + "/" + filename), CSVFormat.RFC4180);
+//                for (CSVRecord record : parser.getRecords()) System.out.println(record);
+//            } else {
+//                Log.d("DEBUG", "Write new file...");
+//                Random rng = new Random();
+//                CSVPrinter writer = new CSVPrinter(new FileWriter(directory + "/" + filename), CSVFormat.RFC4180);
+//                for (int i = 0; i < 10; i++) {
+//                    writer.printRecord(new int[]{rng.nextInt(), rng.nextInt(), rng.nextInt(), rng.nextInt()});
+//                }
+//                writer.close();
+//            }
         }
     }
 
@@ -100,7 +110,11 @@ public class TicTocFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        initFileStream();
+        try {
+            initFileStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         RecyclerView recyclerView = getActivity().findViewById(R.id.rvTimesList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
