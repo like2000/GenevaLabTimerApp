@@ -65,6 +65,7 @@
                     android:layout_weight="1"
                     android:onClick="@{viewModel::createGlobalTimeStamp}"
                     android:text="@string/new_timestamp" />
+
             </TableRow>
 
             <TableRow

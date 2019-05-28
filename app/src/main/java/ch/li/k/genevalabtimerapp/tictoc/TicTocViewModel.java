@@ -91,4 +91,8 @@ public class TicTocViewModel extends AndroidViewModel {
     public void createGlobalTimeStamp(View v) {
         this.globalTimeStamp.setValue(LocalDateTime.now());
     }
+
+    public class TicTocModel {
+        // Essentially an internal struct
+    }
 }

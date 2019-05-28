@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="tictoc"
-            type="ch.li.k.genevalabtimerapp.tictoc.TicTocModel" />
+            name="viewModel"
+            type="ch.li.k.genevalabtimerapp.tictoc.TicTocViewModel" />
 
     </data>
 
@@ -18,28 +18,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{tictoc.date.toString()}" />
+            android:text="@{viewModel.timeStamp.toString()}" />
 
         <TextView
             android:id="@+id/tvStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{tictoc.event}" />
+            android:text="@{viewModel.startTime.toString()}" />
 
         <TextView
             android:id="@+id/tvStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{tictoc.timestamp.toString()}" />
+            android:text="@{viewModel.stopTime.toString()}" />
 
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{tictoc.duration.toString()}" />
+            android:text="@{viewModel.duration.toString()}" />
 
     </LinearLayout>
 

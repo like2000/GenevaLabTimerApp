@@ -17,6 +17,10 @@ public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocView
 
     private ArrayList<TicTocModel> ticTocModelList = new ArrayList<>();
 
+    TicTocAdapter() {
+
+    }
+
     @NonNull
     @Override
     public TicTocViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,11 +50,12 @@ public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocView
 
         TicTocViewHolder(@NonNull ViewDataBinding binding) {
             super(binding.getRoot());
+
             this.binding = binding;
         }
 
         void bind(TicTocModel model) {
-            binding.setVariable(BR.tictoc, model);
+            binding.setVariable(BR.viewModel, model);
             binding.executePendingBindings();
         }
     }
