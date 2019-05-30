@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="java.time.format.DateTimeFormatter" />
+
         <variable
             name="model"
             type="ch.li.k.genevalabtimerapp.tictoc.TicTocViewModel.TicTocModel" />
@@ -15,31 +17,35 @@
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@{model.timeStamp.toString()}" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@{model.timeStamp.format(DateTimeFormatter.ofPattern(`E, dd MMM yyy`))}"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@{model.exercise.toString()}" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="@{model.exercise.toString()}"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@{model.sets.get(0).toString()}" />
+            android:text="@{model.sets.get(0).toString()}"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@{model.sets.get(1).toString()}" />
+            android:text="@{model.sets.get(1).toString()}"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

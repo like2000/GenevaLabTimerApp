@@ -9,6 +9,7 @@ import android.view.View;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +26,7 @@ public class TicTocViewModel extends AndroidViewModel {
     private MutableLiveData<List<LocalDateTime>> timeStamp;
 
     private MutableLiveData<LocalDateTime> globalTimeStamp;
-    private MutableLiveData<List<TicTocModel>> ticTocModelList;
+    private MutableLiveData<ArrayList<TicTocModel>> ticTocModelList;
 
     public TicTocViewModel(@NonNull Application application) {
         super(application);
@@ -102,16 +103,16 @@ public class TicTocViewModel extends AndroidViewModel {
         this.globalTimeStamp = globalTimeStamp;
     }
 
-    public MutableLiveData<List<TicTocModel>> getTicTocModelList() {
+    public MutableLiveData<ArrayList<TicTocModel>> getTicTocModelList() {
         return ticTocModelList;
     }
 
-    public void setTicTocModelList(MutableLiveData<List<TicTocModel>> ticTocModelList) {
+    public void setTicTocModelList(MutableLiveData<ArrayList<TicTocModel>> ticTocModelList) {
         this.ticTocModelList = ticTocModelList;
     }
 
     public void newEntry(View v) {
-        List<TicTocModel> ticTcModelList = ticTocModelList.getValue();
+        ArrayList<TicTocModel> ticTcModelList = ticTocModelList.getValue();
         if (ticTcModelList == null)
             ticTcModelList = new ArrayList<>();
 
