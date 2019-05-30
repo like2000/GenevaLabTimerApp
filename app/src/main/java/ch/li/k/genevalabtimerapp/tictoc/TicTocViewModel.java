@@ -3,27 +3,26 @@ package ch.li.k.genevalabtimerapp.tictoc;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class TicTocViewModel extends AndroidViewModel {
 
-    private ExecutorService executorService;
+    private static final String filename = "tictoc_output.csv";
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTRENAL_STORAGE = 1;
+    private static final String directory = Environment
+            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            .getAbsolutePath();
 
-    private MutableLiveData<List<Duration>> duration;
-    private MutableLiveData<List<LocalDateTime>> stopTime;
-    private MutableLiveData<List<LocalDateTime>> startTime;
-    private MutableLiveData<List<LocalDateTime>> timeStamp;
+    private MutableLiveData<Boolean> newTrigger;
+    private MutableLiveData<Boolean> readTrigger;
+    private MutableLiveData<Boolean> deleteTrigger;
 
     private MutableLiveData<LocalDateTime> globalTimeStamp;
     private MutableLiveData<ArrayList<TicTocModel>> ticTocModelList;
@@ -31,17 +30,12 @@ public class TicTocViewModel extends AndroidViewModel {
     public TicTocViewModel(@NonNull Application application) {
         super(application);
 
-        this.duration = new MutableLiveData<>();
-        this.stopTime = new MutableLiveData<>();
-        this.startTime = new MutableLiveData<>();
-        this.timeStamp = new MutableLiveData<>();
+        this.newTrigger = new MutableLiveData<>();
+        this.readTrigger = new MutableLiveData<>();
+        this.deleteTrigger = new MutableLiveData<>();
 
         this.globalTimeStamp = new MutableLiveData<>();
         this.ticTocModelList = new MutableLiveData<>();
-
-        this.executorService = Executors.newSingleThreadExecutor();
-
-        initData();
     }
 
     public void initData() {
@@ -63,37 +57,6 @@ public class TicTocViewModel extends AndroidViewModel {
         ticTocModelList.setValue(modelList);
     }
 
-    public MutableLiveData<List<Duration>> getDuration() {
-        return duration;
-    }
-
-    public void setDuration(MutableLiveData<List<Duration>> duration) {
-        this.duration = duration;
-    }
-
-    public MutableLiveData<List<LocalDateTime>> getStopTime() {
-        return stopTime;
-    }
-
-    public void setStopTime(MutableLiveData<List<LocalDateTime>> stopTime) {
-        this.stopTime = stopTime;
-    }
-
-    public MutableLiveData<List<LocalDateTime>> getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(MutableLiveData<List<LocalDateTime>> startTime) {
-        this.startTime = startTime;
-    }
-
-    public MutableLiveData<List<LocalDateTime>> getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(MutableLiveData<List<LocalDateTime>> timeStamp) {
-        this.timeStamp = timeStamp;
-    }
 
     public MutableLiveData<LocalDateTime> getGlobalTimeStamp() {
         return globalTimeStamp;
@@ -144,8 +107,8 @@ public class TicTocViewModel extends AndroidViewModel {
         From: https://stackoverflow.com/questions/48020377/livedata-update-on-object-field-change: Your POJO object would look something like this
         */
 
-        LocalDateTime timeStamp;
         ArrayList<Integer> sets;
+        LocalDateTime timeStamp;
         String exercise;
 
         public LocalDateTime getTimeStamp() {

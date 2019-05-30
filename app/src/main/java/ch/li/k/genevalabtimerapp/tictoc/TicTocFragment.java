@@ -27,6 +27,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import ch.li.k.genevalabtimerapp.databinding.FragmentTicTocBinding;
 
@@ -42,7 +44,40 @@ public class TicTocFragment extends Fragment {
     private RecyclerView recyclerView;
     private FragmentTicTocBinding binding;
 
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     public TicTocFragment() {
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        binding = FragmentTicTocBinding.inflate(inflater, container, false);
+        recyclerView = binding.rvTimesList;
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        try {
+            initFileStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        adapter = new TicTocAdapter();
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        TicTocViewModel viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
+        viewModel.getTicTocModelList().observe(this, adapter::setTicTocModelList);
+
+        binding.setLifecycleOwner(this);
+        binding.setViewModel(viewModel);
     }
 
     void initFileStream() throws IOException {
@@ -93,36 +128,5 @@ public class TicTocFragment extends Fragment {
 //                writer.close();
 //            }
         }
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding = FragmentTicTocBinding.inflate(inflater, container, false);
-        recyclerView = binding.rvTimesList;
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        try {
-            initFileStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        adapter = new TicTocAdapter();
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        TicTocViewModel viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
-        viewModel.getTicTocModelList().observe(this, adapter::setTicTocModelList);
-
-        binding.setLifecycleOwner(this);
-        binding.setViewModel(viewModel);
     }
 }

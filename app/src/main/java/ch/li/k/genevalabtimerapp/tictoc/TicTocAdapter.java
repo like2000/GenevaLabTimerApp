@@ -18,7 +18,6 @@ public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocView
     private ArrayList<TicTocViewModel.TicTocModel> ticTocModelList = new ArrayList<>();
 
     TicTocAdapter() {
-
     }
 
     @NonNull
