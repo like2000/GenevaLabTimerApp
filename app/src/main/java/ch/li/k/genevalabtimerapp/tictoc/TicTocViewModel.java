@@ -4,11 +4,14 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,6 +25,7 @@ public class TicTocViewModel extends AndroidViewModel {
     private MutableLiveData<List<LocalDateTime>> timeStamp;
 
     private MutableLiveData<LocalDateTime> globalTimeStamp;
+    private MutableLiveData<List<TicTocModel>> ticTocModelList;
 
     public TicTocViewModel(@NonNull Application application) {
         super(application);
@@ -32,8 +36,30 @@ public class TicTocViewModel extends AndroidViewModel {
         this.timeStamp = new MutableLiveData<>();
 
         this.globalTimeStamp = new MutableLiveData<>();
+        this.ticTocModelList = new MutableLiveData<>();
 
         this.executorService = Executors.newSingleThreadExecutor();
+
+        initData();
+    }
+
+    public void initData() {
+        Random rng = new Random();
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        arrayList.add(rng.nextInt());
+        arrayList.add(rng.nextInt());
+
+        TicTocModel model = new TicTocModel();
+        model.setTimeStamp(LocalDateTime.now());
+        model.setExercise("Barbell Curls");
+        model.setSets(arrayList);
+
+        ArrayList<TicTocModel> modelList = (ArrayList<TicTocModel>) ticTocModelList.getValue();
+        if (modelList == null)
+            modelList = new ArrayList<>();
+        modelList.add(model);
+        ticTocModelList.setValue(modelList);
     }
 
     public MutableLiveData<List<Duration>> getDuration() {
@@ -76,23 +102,73 @@ public class TicTocViewModel extends AndroidViewModel {
         this.globalTimeStamp = globalTimeStamp;
     }
 
+    public MutableLiveData<List<TicTocModel>> getTicTocModelList() {
+        return ticTocModelList;
+    }
+
+    public void setTicTocModelList(MutableLiveData<List<TicTocModel>> ticTocModelList) {
+        this.ticTocModelList = ticTocModelList;
+    }
+
     public void newEntry(View v) {
-//        List<TicTocModel> ticTcModelList = mutableTicTocModelList.getValue();
-//        if (ticTcModelList == null)
-//            ticTcModelList = new ArrayList<>();
-//
-//        for (int i = 0; i < 10; i++) {
-//            ticTcModelList.add(new TicTocModel(new String[]{"a", "b"}));
-//        }
-//
-//        mutableTicTocModelList.setValue(ticTcModelList);
+        List<TicTocModel> ticTcModelList = ticTocModelList.getValue();
+        if (ticTcModelList == null)
+            ticTcModelList = new ArrayList<>();
+
+        ArrayList<Integer> setsList = new ArrayList<>();
+        TicTocModel model = new TicTocModel();
+        Random rng = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            setsList.add(rng.nextInt());
+            setsList.add(rng.nextInt());
+
+            model.setTimeStamp(LocalDateTime.now());
+            model.setExercise("Incline Curls");
+            model.setSets(setsList);
+            ticTcModelList.add(model);
+        }
+
+        ticTocModelList.setValue(ticTcModelList);
+        Log.d("DEBUG", "Add new entry");
     }
 
     public void createGlobalTimeStamp(View v) {
         this.globalTimeStamp.setValue(LocalDateTime.now());
     }
 
-    public class TicTocModel {
-        // Essentially an internal struct
+    public class TicTocModel { // extends POJO
+        /*
+        Essentially an internal struct
+        From: https://stackoverflow.com/questions/48020377/livedata-update-on-object-field-change: Your POJO object would look something like this
+        */
+
+        LocalDateTime timeStamp;
+        ArrayList<Integer> sets;
+        String exercise;
+
+        public LocalDateTime getTimeStamp() {
+            return timeStamp;
+        }
+
+        public void setTimeStamp(LocalDateTime timeStamp) {
+            this.timeStamp = timeStamp;
+        }
+
+        public ArrayList<Integer> getSets() {
+            return sets;
+        }
+
+        public void setSets(ArrayList<Integer> sets) {
+            this.sets = sets;
+        }
+
+        public String getExercise() {
+            return exercise;
+        }
+
+        public void setExercise(String exercise) {
+            this.exercise = exercise;
+        }
     }
 }

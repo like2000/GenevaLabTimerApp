@@ -4,42 +4,42 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="ch.li.k.genevalabtimerapp.tictoc.TicTocViewModel" />
+            name="model"
+            type="ch.li.k.genevalabtimerapp.tictoc.TicTocViewModel.TicTocModel" />
 
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="30dp">
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{viewModel.timeStamp.toString()}" />
+            android:text="@{model.timeStamp.toString()}" />
 
         <TextView
             android:id="@+id/tvStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{viewModel.startTime.toString()}" />
+            android:text="@{model.exercise.toString()}" />
 
         <TextView
             android:id="@+id/tvStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{viewModel.stopTime.toString()}" />
+            android:text="@{model.sets.get(0).toString()}" />
 
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@{viewModel.duration.toString()}" />
+            android:text="@{model.sets.get(1).toString()}" />
 
     </LinearLayout>
 

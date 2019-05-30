@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ch.li.k.genevalabtimerapp.BR;
-import ch.li.k.genevalabtimerapp.databinding.FragmentTicTocItemBinding;
+import ch.li.k.genevalabtimerapp.databinding.FragmentTicTocItem3colBinding;
 
 // Best resource - George Mount: https://medium.com/androiddevelopers/android-data-binding-recyclerview-db7c40d9f0e4
 // and https://medium.com/@guendouz/room-livedata-and-recyclerview-d8e96fb31dfe
 public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocViewHolder> {
 
-    private ArrayList<TicTocModel> ticTocModelList = new ArrayList<>();
+    private ArrayList<TicTocViewModel.TicTocModel> ticTocModelList = new ArrayList<>();
 
     TicTocAdapter() {
 
@@ -24,7 +24,7 @@ public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocView
     @NonNull
     @Override
     public TicTocViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewDataBinding binding = FragmentTicTocItemBinding.inflate(
+        ViewDataBinding binding = FragmentTicTocItem3colBinding.inflate(
                 LayoutInflater.from(parent.getContext()), parent, false);
 
         return new TicTocViewHolder(binding);
@@ -36,11 +36,16 @@ public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocView
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public int getItemCount() {
         return ticTocModelList == null ? 0 : ticTocModelList.size();
     }
 
-    void setTicTocModelList(ArrayList<TicTocModel> ticTocModelList) {
+    public void setTicTocModelList(ArrayList<TicTocViewModel.TicTocModel> ticTocModelList) {
         this.ticTocModelList = ticTocModelList;
         notifyDataSetChanged();
     }
@@ -54,8 +59,8 @@ public class TicTocAdapter extends RecyclerView.Adapter<TicTocAdapter.TicTocView
             this.binding = binding;
         }
 
-        void bind(TicTocModel model) {
-            binding.setVariable(BR.viewModel, model);
+        void bind(TicTocViewModel.TicTocModel model) {
+            binding.setVariable(BR.model, model);
             binding.executePendingBindings();
         }
     }

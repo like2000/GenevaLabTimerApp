@@ -1,6 +1,7 @@
 package ch.li.k.genevalabtimerapp.tictoc;
 
 import android.Manifest;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import ch.li.k.genevalabtimerapp.databinding.FragmentTicTocBinding;
@@ -117,6 +120,13 @@ public class TicTocFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         TicTocViewModel viewModel = ViewModelProviders.of(this).get(TicTocViewModel.class);
+        viewModel.getTicTocModelList().observe(this, new Observer<List<TicTocViewModel.TicTocModel>>() {
+            @Override
+            public void onChanged(@Nullable List<TicTocViewModel.TicTocModel> ticTocModels) {
+                ((TicTocAdapter) recyclerView.getAdapter()).setTicTocModelList((ArrayList<TicTocViewModel.TicTocModel>) ticTocModels);
+                Log.d("DEBUG", "Item changed!");
+            }
+        });
 //        viewModel.getMutableTicTocModelList().observe(this, new Observer<List<TicTocModel>>() {
 //            @Override
 //            public void onChanged(@Nullable List<TicTocModel> ticTocModels) {
