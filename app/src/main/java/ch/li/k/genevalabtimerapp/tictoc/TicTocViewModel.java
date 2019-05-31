@@ -9,11 +9,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class TicTocViewModel extends AndroidViewModel {
@@ -28,8 +34,11 @@ public class TicTocViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> readTrigger;
     private MutableLiveData<Boolean> deleteTrigger;
 
+    private int n_cols, n_rows;
+    private List<CSVRecord> buffer;
+
     private MutableLiveData<LocalDateTime> globalTimeStamp;
-    private MutableLiveData<ArrayList<TicTocModel>> ticTocModelList;
+    private MutableLiveData<List<TicTocModel>> ticTocModelList;
 
     public TicTocViewModel(@NonNull Application application) {
         super(application);
@@ -40,24 +49,33 @@ public class TicTocViewModel extends AndroidViewModel {
 
         this.globalTimeStamp = new MutableLiveData<>();
         this.ticTocModelList = new MutableLiveData<>();
+
+        initData();
     }
 
     public void initData() {
-        Random rng = new Random();
+        try {
+            CSVParser parser = new CSVParser(new FileReader(directory + "/" + filename), CSVFormat.RFC4180);
+            buffer = parser.getRecords();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        n_rows = buffer.size();
 
-        ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(rng.nextInt());
-        arrayList.add(rng.nextInt());
-
-        TicTocModel model = new TicTocModel();
-        model.setTimeStamp(LocalDateTime.now());
-        model.setExercise("Barbell Curls");
-        model.setSets(arrayList);
-
-        ArrayList<TicTocModel> modelList = (ArrayList<TicTocModel>) ticTocModelList.getValue();
+        List<TicTocModel> modelList = ticTocModelList.getValue();
         if (modelList == null)
             modelList = new ArrayList<>();
-        modelList.add(model);
+
+        for (CSVRecord record : buffer) {
+            TicTocModel model = new TicTocModel();
+            model.setTimeStamp(LocalDateTime.now());
+            model.setStartTime(LocalDateTime.now());
+            model.setStopTime(LocalDateTime.now());
+            model.setDuration(Duration.ofDays(2000));
+
+            modelList.add(model);
+        }
+
         ticTocModelList.setValue(modelList);
     }
 
@@ -70,16 +88,16 @@ public class TicTocViewModel extends AndroidViewModel {
         this.globalTimeStamp = globalTimeStamp;
     }
 
-    public MutableLiveData<ArrayList<TicTocModel>> getTicTocModelList() {
+    public MutableLiveData<List<TicTocModel>> getTicTocModelList() {
         return ticTocModelList;
     }
 
-    public void setTicTocModelList(MutableLiveData<ArrayList<TicTocModel>> ticTocModelList) {
+    public void setTicTocModelList(MutableLiveData<List<TicTocModel>> ticTocModelList) {
         this.ticTocModelList = ticTocModelList;
     }
 
     public void newEntry(View v) {
-        ArrayList<TicTocModel> ticTcModelList = ticTocModelList.getValue();
+        List<TicTocModel> ticTcModelList = ticTocModelList.getValue();
         if (ticTcModelList == null)
             ticTcModelList = new ArrayList<>();
 
@@ -101,7 +119,11 @@ public class TicTocViewModel extends AndroidViewModel {
         Log.d("DEBUG", "Add new entry");
     }
 
-    public void delete(View v) {
+    public void addEntry(View v) {
+
+    }
+
+    public void deleteAll(View v) {
         new File(directory + "/" + filename).delete();
         Toast.makeText(getApplication(), "File: " + filename + " deleted!", Toast.LENGTH_SHORT).show();
         System.out.println("Deleted!");
@@ -127,8 +149,12 @@ public class TicTocViewModel extends AndroidViewModel {
         From: https://stackoverflow.com/questions/48020377/livedata-update-on-object-field-change: Your POJO object would look something like this
         */
 
-        ArrayList<Integer> sets;
         LocalDateTime timeStamp;
+        LocalDateTime startTime;
+        LocalDateTime stopTime;
+        Duration duration;
+
+        List<Integer> sets;
         String exercise;
 
         public LocalDateTime getTimeStamp() {
@@ -139,11 +165,35 @@ public class TicTocViewModel extends AndroidViewModel {
             this.timeStamp = timeStamp;
         }
 
-        public ArrayList<Integer> getSets() {
+        public LocalDateTime getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(LocalDateTime startTime) {
+            this.startTime = startTime;
+        }
+
+        public LocalDateTime getStopTime() {
+            return stopTime;
+        }
+
+        public void setStopTime(LocalDateTime stopTime) {
+            this.stopTime = stopTime;
+        }
+
+        public Duration getDuration() {
+            return duration;
+        }
+
+        public void setDuration(Duration duration) {
+            this.duration = duration;
+        }
+
+        public List<Integer> getSets() {
             return sets;
         }
 
-        void setSets(ArrayList<Integer> sets) {
+        void setSets(List<Integer> sets) {
             this.sets = sets;
         }
 
