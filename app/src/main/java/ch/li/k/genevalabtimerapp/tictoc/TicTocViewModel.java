@@ -7,7 +7,11 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
@@ -97,6 +101,22 @@ public class TicTocViewModel extends AndroidViewModel {
         Log.d("DEBUG", "Add new entry");
     }
 
+    public void delete(View v) {
+        new File(directory + "/" + filename).delete();
+        Toast.makeText(getApplication(), "File: " + filename + " deleted!", Toast.LENGTH_SHORT).show();
+        System.out.println("Deleted!");
+//        try {
+//            new FileWriter(directory + "/" + filename, false).close();
+////            Toast.makeText(getApplication(), 1, 1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public void doNothing(View v) {
+        System.out.println("Do nothing!");
+    }
+
     public void createGlobalTimeStamp(View v) {
         this.globalTimeStamp.setValue(LocalDateTime.now());
     }
@@ -115,7 +135,7 @@ public class TicTocViewModel extends AndroidViewModel {
             return timeStamp;
         }
 
-        public void setTimeStamp(LocalDateTime timeStamp) {
+        void setTimeStamp(LocalDateTime timeStamp) {
             this.timeStamp = timeStamp;
         }
 
@@ -123,7 +143,7 @@ public class TicTocViewModel extends AndroidViewModel {
             return sets;
         }
 
-        public void setSets(ArrayList<Integer> sets) {
+        void setSets(ArrayList<Integer> sets) {
             this.sets = sets;
         }
 
@@ -131,7 +151,7 @@ public class TicTocViewModel extends AndroidViewModel {
             return exercise;
         }
 
-        public void setExercise(String exercise) {
+        void setExercise(String exercise) {
             this.exercise = exercise;
         }
     }

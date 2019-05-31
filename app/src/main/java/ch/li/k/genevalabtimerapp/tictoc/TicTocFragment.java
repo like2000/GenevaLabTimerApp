@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Random;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -101,32 +100,24 @@ public class TicTocFragment extends Fragment {
                 // result of the request.
             }
         } else {
-            // File exist
+            // First clean everything
+            // ======================
+            int n_rows, n_cols;
+            List<CSVRecord> buffer;
             File file = new File(directory + "/" + filename);
-            Log.d("DEBUG", "Write new file...");
-            Random rng = new Random();
-            CSVPrinter writer = new CSVPrinter(new FileWriter(directory + "/" + filename), CSVFormat.RFC4180);
-            for (int i = 0; i < 10; i++)
-                writer.printRecord(String.valueOf(rng.nextInt()), String.valueOf(rng.nextInt()), String.valueOf(rng.nextInt()), String.valueOf(rng.nextInt()));
-            writer.close();
 
-            Log.d("DEBUG", "Print file content...");
-            CSVParser parser = new CSVParser(new FileReader(directory + "/" + filename), CSVFormat.RFC4180);
-            for (CSVRecord record : parser.getRecords()) System.out.println(record);
+            if (file.exists()) {
+                CSVParser parser = new CSVParser(new FileReader(directory + "/" + filename), CSVFormat.RFC4180);
+                buffer = parser.getRecords();
+                n_rows = buffer.size();
 
-//            if (file.exists()) {
-//                Log.d("DEBUG", "Print file content...");
-//                CSVParser parser = new CSVParser(new FileReader(directory + "/" + filename), CSVFormat.RFC4180);
-//                for (CSVRecord record : parser.getRecords()) System.out.println(record);
-//            } else {
-//                Log.d("DEBUG", "Write new file...");
-//                Random rng = new Random();
-//                CSVPrinter writer = new CSVPrinter(new FileWriter(directory + "/" + filename), CSVFormat.RFC4180);
-//                for (int i = 0; i < 10; i++) {
-//                    writer.printRecord(new int[]{rng.nextInt(), rng.nextInt(), rng.nextInt(), rng.nextInt()});
-//                }
-//                writer.close();
-//            }
+//                System.out.println("\n\n--> Printing output buffer:");
+//                buffer.forEach(System.out::println);
+            } else {
+                CSVPrinter writer = new CSVPrinter(new FileWriter(directory + "/" + filename), CSVFormat.RFC4180);
+                writer.printRecord("Timestamp", "Start", "Stop", "Duration");
+                writer.close();
+            }
         }
     }
 }
